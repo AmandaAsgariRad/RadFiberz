@@ -1,12 +1,21 @@
-﻿namespace RadFiberz.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace RadFiberz.Models
 {
     public class Purchase
     {
-        public int Id { get; set; }
-        public int ProductId { get; set; }
-        public int UserId { get; set; }
-        public int PurchaseDate { get; set; }
-        public int OrderId { get; set; }
-
+        public int Id
+        {
+            get; set;
+        }
+        [Required]
+        public int ProductId
+        {
+            get; set;
+        }
+        [Required]
+        public int UserId
+        {
+            get; set;
+        }
     }
 }

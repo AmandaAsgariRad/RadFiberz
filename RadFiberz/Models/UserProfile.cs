@@ -9,40 +9,47 @@ namespace RadFiberz.Models
         public int Id { get; set; }
         
         [Required]
-        [MaxLength(50)]
+        [MaxLength(55)]
         public string FirstName { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(55)]
         public string LastName { get; set; }
+
+        [Required]
         public bool IsAdmin { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [MaxLength(255)]
+        [MaxLength(55)]
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(55)]
         public string StreetAddress { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(55)]
         public string City { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(55)]
         public string State { get; set; }
         [Required]
-        public int ZipCode { get; set; }
+        [DataType(DataType.PostalCode)]
+        [MaxLength(55)]
+        public string ZipCode { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [DataType(DataType.PhoneNumber)]
+        [MaxLength(55)]
         public string PhoneNumber { get; set; }
         public DateTime DateCreated { get; set; }
         
         [StringLength(28, MinimumLength = 28)]
         public string FirebaseUserId { get; set; }
+
+        [Required]
         public bool IsActive { get; set; }
 
         public string FullName

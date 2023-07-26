@@ -49,7 +49,7 @@ namespace RadFiberz.Repositories
                                     Color = new Color()
                                     {
                                         Id = DbUtils.GetInt(reader, "ColorId"),
-                                        Name = DbUtils.GetString(reader, "Name"),
+                                        Name = DbUtils.GetString(reader, "ColorName"),
 
                                     }
 ,
@@ -104,7 +104,7 @@ namespace RadFiberz.Repositories
                                 Color = new Color()
                                 {
                                     Id = DbUtils.GetInt(reader, "ColorId"),
-                                    Name = DbUtils.GetString(reader, "Name"),
+                                    Name = DbUtils.GetString(reader, "ColorName"),
 
                                 }
 

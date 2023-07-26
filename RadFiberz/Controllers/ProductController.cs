@@ -24,7 +24,7 @@ namespace RadFiberz.Controllers
             return Ok(products);
         }
 
-        // GET api/<ProductController>/5
+        // GET by Id api/<ProductController>/5
         [HttpGet("details/{id}")]
         public IActionResult GetProductById(int id)
         {

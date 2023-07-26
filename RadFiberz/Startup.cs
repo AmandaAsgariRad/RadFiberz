@@ -31,6 +31,8 @@ namespace RadFiberz
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            //services.AddTransient<IColorRepository, ColorRepository>();
+            services.AddTransient<IFavoriteRepository, FavoriteRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

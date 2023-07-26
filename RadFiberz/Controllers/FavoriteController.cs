@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RadFiberz.Models;
+using RadFiberz.Repositories;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,36 +11,46 @@ namespace RadFiberz.Controllers
     [ApiController]
     public class FavoriteController : ControllerBase
     {
-        // GET: api/<FavoriteController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IFavoriteRepository _favoriteRepository;
+        public FavoriteController(IFavoriteRepository favoriteRepository)
         {
-            return new string[] { "value1", "value2" };
+            _favoriteRepository = favoriteRepository;
+        }
+        //// GET: api/<FavoriteController>
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+            
+        //}
+
+        // GET by UserId api/<FavoriteController>/5
+        [HttpGet("details/{userId}")]
+        public IActionResult GetByUserId(int userId)
+        {
+            List<Favorite> favorites = _favoriteRepository.GetAllByUserId(userId);
+            return Ok(favorites);
         }
 
-        // GET api/<FavoriteController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<FavoriteController>
+        // POST/ADD api/<FavoriteController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult AddFavorite(Favorite favorite)
         {
+            _favoriteRepository.Add(favorite);
+            return CreatedAtAction("Get", new { id = favorite.Id }, favorite);
         }
 
-        // PUT api/<FavoriteController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //// PUT api/<FavoriteController>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
         // DELETE api/<FavoriteController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _favoriteRepository.Delete(id);
+            return NoContent();
         }
     }
 }

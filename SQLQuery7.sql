@@ -1,0 +1,2 @@
+﻿INSERT INTO [UserProfile] ([FirstName], [LastName], [IsAdmin], [Email], [StreetAddress], [City], [State], [ZipCode], [PhoneNumber], [DateCreated], [FirebaseUserId], [IsActive])
+VALUES ('Midnight', 'Black', 0, 'midnight@icloud.com', '487 Moonlit Pike', 'Nashville', 'Tennessee', 37067, '615-890-3421', GETDATE(), 'J1PZhEiCn5YUSbPs413RrvSE4tC3', 1);

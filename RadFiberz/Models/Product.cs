@@ -17,8 +17,18 @@ namespace RadFiberz.Models
         public bool IsJewelry { get; set; }
 
         [Required]
-        public int ColorId { get; set; }
-        public int Quantity { get; set; }
+        public int ProductColorId { get; set; }
+        [Required]
+        public int InventoryQuantity { get; set; }
+        [Required]
+        public double Price { get; set; }
+        [Required]
+        [MaxLength(75)]
+        public string Description { get; set; }
+        public string ProductImage { get; set; }
+        public ProductColor ProductColor { get; set; }
+        
+
 
 
     }

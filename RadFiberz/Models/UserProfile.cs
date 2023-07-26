@@ -38,7 +38,7 @@ namespace RadFiberz.Models
         [Required]
         [DataType(DataType.PostalCode)]
         [MaxLength(55)]
-        public string ZipCode { get; set; }
+        public int ZipCode { get; set; }
 
         [Required]
         [DataType(DataType.PhoneNumber)]

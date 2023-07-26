@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RadFiberz.Models;
+using RadFiberz.Repositories;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +11,50 @@ namespace RadFiberz.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        // GET: api/<ProductController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IProductRepository _productRepository;
+        public ProductController(IProductRepository productRepository)
         {
-            return new string[] { "value1", "value2" };
+            _productRepository = productRepository;
+        }
+        // GET All Products: api/<ProductController>
+        [HttpGet]
+        public IActionResult GetAllProducts()
+        {
+            List<Product> products = _productRepository.GetAll();
+            return Ok(products);
         }
 
         // GET api/<ProductController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("details/{id}")]
+        public IActionResult GetProductById(int id)
         {
-            return "value";
-        }
+            var products = _productRepository.GetById(id);
+            if (products == null)
+            {
+                return NotFound();
+            }
+            return Ok(products);
 
-        // POST api/<ProductController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ProductController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ProductController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
+
+//        // POST api/<ProductController>
+//        [HttpPost]
+//        public void Post([FromBody] string value)
+//        {
+//        }
+
+//        // PUT api/<ProductController>/5
+//        [HttpPut("{id}")]
+//        public void Put(int id, [FromBody] string value)
+//        {
+//        }
+
+//        // DELETE api/<ProductController>/5
+//        [HttpDelete("{id}")]
+//        public void Delete(int id)
+//        {
+//        }
+//    }
+//}

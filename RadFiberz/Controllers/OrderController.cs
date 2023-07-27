@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RadFiberz.Repositories;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,6 +10,11 @@ namespace RadFiberz.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
+        private readonly IOrderRepository _orderRepository;
+        public OrderController(IOrderRepository orderRepository)
+        {
+            _orderRepository = orderRepository;
+        }
         // GET: api/<OrderController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -16,11 +22,16 @@ namespace RadFiberz.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<OrderController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET by UserId api/<OrderController>/5
+        [HttpGet("details/{userId}")]
+        public IActionResult GetOrderByUserId(int userId)
         {
-            return "value";
+            var orders = _orderRepository.GetByUserId(userId);
+            if (orders == null)
+            {
+                return NotFound();
+            }
+            return Ok(orders);
         }
 
         // POST api/<OrderController>

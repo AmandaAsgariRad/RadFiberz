@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace RadFiberz.Models
 {
@@ -14,7 +15,14 @@ namespace RadFiberz.Models
         [Required]
         public int UserId { get; set; }
         [Required]
+        public int ProductColorId { get; set; }
+
+        [Required]
         public bool OrderComplete { get; set; } 
+        public UserProfile UserProfile { get; set; }
+        public ProductColor ProductColor { get; set; }
+
+
 
     }
 }

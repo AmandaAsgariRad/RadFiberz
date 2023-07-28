@@ -1,9 +1,10 @@
 ﻿using RadFiberz.Models;
+using System.Collections.Generic;
 
 namespace RadFiberz.Repositories
 {
     public interface IOrderRepository
     {
-        public Order GetByUserId(int userId);
+        public List<Order> GetByUserId(int userId);
     }
 }

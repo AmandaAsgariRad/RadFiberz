@@ -20,6 +20,7 @@ namespace RadFiberz.Models
         [Required]
         public bool OrderComplete { get; set; } 
         public UserProfile UserProfile { get; set; }
+        public Product Product { get; set; }
         public ProductColor ProductColor { get; set; }
 
 

@@ -1,10 +1,15 @@
-import logo from './logo.svg';
+
+import { Header } from './components/header';
 import './App.css';
 import React, { useState, useEffect } from "react";
+import { onLoginStatusChange, getUserDetails, firebase } from './modules/authManager';
+import { Router } from 'react-router-dom';
+import { ApplicationViews } from './components/userProfile/applicationViews';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null),
-    [role, setRole] = useState("")
+    [user, setUser] = useState(null);
 
   useEffect(() => {
     onLoginStatusChange(setIsLoggedIn);
@@ -15,10 +20,10 @@ function App() {
       // firebase.auth().currentUser.uid grabs the firebaseUID -- firebase has many helpers like this
       getUserDetails(firebase.auth().currentUser.uid)
         .then(userObject => {
-          setRole(userObject.userType.name)
+          setUser(userObject.userType.name)
         })
     } else {
-      setRole("")
+      setUser("")
     }
   }, [isLoggedIn])
 
@@ -28,20 +33,11 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Header isLoggedIn={isLoggedIn} user={user} />
+        <ApplicationViews isLoggedIn={isLoggedIn} />
+
+      </Router>
     </div>
   );
 }

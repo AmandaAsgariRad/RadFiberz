@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RadFiberz.Models;
+using RadFiberz.Repositories;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,36 +11,91 @@ namespace RadFiberz.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
-        // GET: api/<CartController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ICartRepository _cartRepository;
+        public CartController(ICartRepository cartRepository)
         {
-            return new string[] { "value1", "value2" };
+            _cartRepository = cartRepository;
         }
 
-        // GET api/<CartController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        //// GET: api/<CartController>
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
+
+        // GET by UserId api/<CartController>/5
+        [HttpGet("details/byUserId/{userId}")]
+        public IActionResult GetCartByUserId(int userId)
         {
-            return "value";
+            var cart = _cartRepository.GetByUserId(userId);
+            if (cart == null)
+            {
+                return NotFound();
+            }
+            return Ok(cart);
         }
 
-        // POST api/<CartController>
+        // GET by Id api/<CartController>/5
+        [HttpGet("details/byId/{id}")]
+        public IActionResult Get(int id)
+        {
+            var cart = _cartRepository.GetById(id);
+            if (cart == null)
+            {
+                return NotFound();
+            }
+            return Ok(cart);
+        }
+
+        // POST/Add api/<CartController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult AddCart([FromBody] Cart cart)
         {
+            if (cart == null)
+            {
+                return BadRequest();
+            }
+
+            _cartRepository.Add(cart);
+
+            return CreatedAtRoute("GetCartById", new { id = cart.Id }, cart);
         }
 
-        // PUT api/<CartController>/5
+        // PUT/Update api/<CartController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult UpdateCart(int id, [FromBody] Cart cart)
         {
+            if (cart == null || cart.Id != id)
+            {
+                return BadRequest();
+            }
+
+            var existingCart = _cartRepository.GetById(id);
+            if (existingCart == null)
+            {
+                return NotFound();
+            }
+
+            existingCart.ProductId = cart.ProductId;
+            existingCart.ProductQuantity = cart.ProductQuantity;
+            existingCart.UserId = cart .UserId;
+            existingCart.ProductColorId = cart .ProductColorId;
+            existingCart.OrderComplete = cart.OrderComplete;
+
+            _cartRepository.Update(existingCart);
+
+            return NoContent();
         }
 
         // DELETE api/<CartController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{productId}")]
+        public IActionResult DeleteProductInCart(int productId)
         {
+
+            _cartRepository.Delete(productId);
+
+            return NoContent();
         }
     }
 }

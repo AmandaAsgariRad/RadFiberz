@@ -27,6 +27,7 @@ namespace RadFiberz.Models
         public string Description { get; set; }
         public string ProductImage { get; set; }
         public ProductColor ProductColor { get; set; }
+        public Cart Cart { get; set; }
         
 
 

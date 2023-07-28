@@ -76,3 +76,5 @@ export const onLoginStatusChange = (onLoginStatusChangeHandler) => {
         onLoginStatusChangeHandler(!!user);
     });
 };
+
+export { firebase };

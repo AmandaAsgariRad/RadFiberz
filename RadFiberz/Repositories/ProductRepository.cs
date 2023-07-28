@@ -22,7 +22,7 @@ namespace RadFiberz.Repositories
                         SELECT p.Id, p.IsMacrame, p.IsJewelry, p.Name, p.ProductColorId, p.InventoryQuantity, p.Price, p.Description, p.ProductImage,
                                pc.Id AS PcId, pc.ColorId, pc.ProductId,
                                c.Id AS ColorId, c.Name AS ColorName
-                        FROM Product P
+                        FROM Product p
                         JOIN ProductColor pc ON p.Id = pc.ProductId
                         JOIN Color c ON c.Id = pc.ColorId";
 

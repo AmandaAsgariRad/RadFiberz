@@ -28,12 +28,12 @@ namespace RadFiberz.Controllers
         [HttpGet("details/{id}")]
         public IActionResult GetProductById(int id)
         {
-            var products = _productRepository.GetById(id);
-            if (products == null)
+            var product = _productRepository.GetById(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return Ok(products);
+            return Ok(product);
 
         }
     }

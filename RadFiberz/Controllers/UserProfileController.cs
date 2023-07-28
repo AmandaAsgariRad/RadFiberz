@@ -52,7 +52,7 @@ namespace RadFiberz.Controllers
 
             // PUT api/<UserProfileController>/5
             [HttpPut("{id}")]
-            public IActionResult Edit(int id, UserProfile userProfile)
+            public IActionResult Update(int id, UserProfile userProfile)
             {
                if (id != userProfile.Id)
             {

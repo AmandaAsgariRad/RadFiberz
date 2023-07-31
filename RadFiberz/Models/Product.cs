@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RadFiberz.Models
@@ -17,8 +18,6 @@ namespace RadFiberz.Models
         public bool IsJewelry { get; set; }
 
         [Required]
-        public int ProductColorId { get; set; }
-        [Required]
         public int InventoryQuantity { get; set; }
         [Required]
         public double Price { get; set; }
@@ -26,7 +25,7 @@ namespace RadFiberz.Models
         [MaxLength(75)]
         public string Description { get; set; }
         public string ProductImage { get; set; }
-        public ProductColor ProductColor { get; set; }
+        public List<ProductColor> ProductColors { get; set; }
         public Cart Cart { get; set; }
         
 

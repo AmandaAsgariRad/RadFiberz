@@ -18,7 +18,7 @@ namespace RadFiberz.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT c.Id, c.ProductId, c.ProductQuantity, c.UserId, c.ProductColorId, c.OrderComplete,
-                               p.Id AS ProdId, p.IsMacrame, p.IsJewelry, p.Name, p.ProductColorId AS ProdClrId, p.InventoryQuantity,
+                               p.Id AS ProdId, p.IsMacrame, p.IsJewelry, p.Name, p.InventoryQuantity,
                                p.Price, p.Description, p.ProductImage,
                                pc.Id AS PrdctClrId, pc.ColorId, pc.ProductId AS PrdctId,
                                col.Id AS ClrId, col.Name AS ColorName
@@ -48,22 +48,12 @@ namespace RadFiberz.Repositories
                                 IsMacrame = DbUtils.GetBool(reader, "IsMacrame"),
                                 IsJewelry = DbUtils.GetBool(reader, "IsJewelry"),
                                 Name = DbUtils.GetString(reader, "Name"),
-                                ProductColorId = DbUtils.GetInt(reader, "ProdClrId"),
                                 InventoryQuantity = DbUtils.GetInt(reader, "InventoryQuantity"),
                                 Price = reader.GetDouble(reader.GetOrdinal("Price")),
                                 Description = DbUtils.GetString(reader, "Description"),
                                 ProductImage = DbUtils.GetString(reader, "ProductImage"),
-                                ProductColor = new ProductColor()
-                                {
-                                    Id = DbUtils.GetInt(reader, "PrdctClrId"),
-                                    ColorId = DbUtils.GetInt(reader, "ColorId"),
-                                    ProductId = DbUtils.GetInt(reader, "PrdctId"),
-                                    Color = new Color()
-                                    {
-                                        Id = DbUtils.GetInt(reader, "ClrId"),
-                                        Name = DbUtils.GetString(reader, "ColorName")
-                                    }
-                                }
+                                
+                                
                             }
 
                         };
@@ -82,7 +72,7 @@ namespace RadFiberz.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT c.Id, c.ProductId, c.ProductQuantity, c.UserId, c.ProductColorId, c.OrderComplete,
-                               p.Id AS ProdId, p.IsMacrame, p.IsJewelry, p.Name, p.ProductColorId AS ProdClrId, p.InventoryQuantity,
+                               p.Id AS ProdId, p.IsMacrame, p.IsJewelry, p.Name, p.InventoryQuantity,
                                p.Price, p.Description, p.ProductImage,
                                pc.Id AS PrdctClrId, pc.ColorId, pc.ProductId AS PrdctId,
                                col.Id AS ClrId, col.Name AS ColorName
@@ -112,22 +102,11 @@ namespace RadFiberz.Repositories
                                 IsMacrame = DbUtils.GetBool(reader, "IsMacrame"),
                                 IsJewelry = DbUtils.GetBool(reader, "IsJewelry"),
                                 Name = DbUtils.GetString(reader, "Name"),
-                                ProductColorId = DbUtils.GetInt(reader, "ProdClrId"),
                                 InventoryQuantity = DbUtils.GetInt(reader, "InventoryQuantity"),
                                 Price = reader.GetDouble(reader.GetOrdinal("Price")),
                                 Description = DbUtils.GetString(reader, "Description"),
                                 ProductImage = DbUtils.GetString(reader, "ProductImage"),
-                                ProductColor = new ProductColor()
-                                {
-                                    Id = DbUtils.GetInt(reader, "PrdctClrId"),
-                                    ColorId = DbUtils.GetInt(reader, "ColorId"),
-                                    ProductId = DbUtils.GetInt(reader, "PrdctId"),
-                                    Color = new Color()
-                                    {
-                                        Id = DbUtils.GetInt(reader, "ClrId"),
-                                        Name = DbUtils.GetString(reader, "ColorName")
-                                    }
-                                }
+                                
                             }
 
                         };
@@ -197,7 +176,7 @@ namespace RadFiberz.Repositories
                     DbUtils.AddParameter(cmd, "ProductId", cart.ProductId);
                     DbUtils.AddParameter(cmd, "@ProductQuantity", cart.ProductQuantity);
                     DbUtils.AddParameter(cmd, "@UserId", cart.UserId);
-                    DbUtils.AddParameter(cmd, "@ProductColorId", cart.ProductColorId);
+                    //DbUtils.AddParameter(cmd, "@ProductColorId", cart.ProductColorId);
                     DbUtils.AddParameter(cmd, "@OrderComplete", cart.OrderComplete);
 
                     cart.Id = (int)cmd.ExecuteScalar();

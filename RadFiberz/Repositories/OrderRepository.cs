@@ -20,7 +20,7 @@ namespace RadFiberz.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT o.Id AS OrderId, o.ProductId, o.UserId, o.CartId,
-                               p.Id AS ProdId, p.IsMacrame, p.IsJewelry, p.Name, p.ProductColorId AS ProdClrId,
+                               p.Id AS ProdId, p.IsMacrame, p.IsJewelry, p.Name,
                                p.InventoryQuantity, p.Price, p.Description, p.ProductImage,
                                c.Id, c.ProductId AS CartProductId, c.ProductQuantity, c.UserId AS CartUserId,
                                c.OrderComplete,
@@ -56,7 +56,6 @@ namespace RadFiberz.Repositories
                                     IsMacrame = DbUtils.GetBool(reader, "IsMacrame"),
                                     IsJewelry = DbUtils.GetBool(reader, "IsJewelry"),
                                     Name = DbUtils.GetString(reader, "Name"),
-                                    ProductColorId = DbUtils.GetInt(reader, "ProdClrId"),
                                     InventoryQuantity = DbUtils.GetInt(reader, "InventoryQuantity"),
                                     Price = reader.GetDouble(reader.GetOrdinal("Price")),
                                     Description = DbUtils.GetString(reader, "Description"),

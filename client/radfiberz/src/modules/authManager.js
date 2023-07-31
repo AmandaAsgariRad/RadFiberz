@@ -3,25 +3,40 @@ import "firebase/auth";
 
 const _apiUrl = "/api/userprofile";
 
+//create function that gets token from firebase
+export const getToken = () => firebase.auth().currentUser.getIdToken();
+
+
 export const getUserDetails = (firebaseUUID) => {
-    return getToken().then(token => {
+    return getToken().then((token) => {
         return fetch(`${_apiUrl}/${firebaseUUID}`, {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => res.json())
-    })
-}
+                Authorization: `Bearer ${token}`,
+            },
+        }).then(res => res.json());
+    });
+};
 
 const _doesUserExist = (firebaseUserId) => {
-    return getToken().then((token) =>
-        fetch(`${_apiUrl}/DoesUserExist/${firebaseUserId}`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`
+    return getToken()
+        .then((token) =>
+            fetch(`${_apiUrl}/${firebaseUserId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+        )
+        .then((resp) => {
+            if (!resp.ok) {
+                throw new Error(`HTTP error! status: ${resp.status}`);
             }
-        }).then(resp => resp.json()));
+            return resp.json();
+        })
+        .catch((error) => {
+            console.error("Error fetching user data:", error);
+        });
 };
 
 const _saveUser = (userProfile) => {
@@ -30,20 +45,20 @@ const _saveUser = (userProfile) => {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(userProfile)
-        }).then(resp => resp.json()));
+            body: JSON.stringify(userProfile),
+        }).then((resp) => resp.json())
+    );
 };
 
-export const getToken = () => firebase.auth().currentUser.getIdToken();
 
 
 export const login = (email, pw) => {
     return firebase.auth().signInWithEmailAndPassword(email, pw)
         .then((signInResponse) => _doesUserExist(signInResponse.user.uid))
         .then((doesUserExist) => {
-            if (!doesUserExist || !doesUserExist.activated) {
+            if (!doesUserExist) {
 
                 // If we couldn't find the user in our app's database, or the user is deactivated, we should logout of firebase
                 logout();

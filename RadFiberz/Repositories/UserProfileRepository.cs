@@ -40,7 +40,8 @@ namespace RadFiberz.Repositories
                                 StreetAddress = DbUtils.GetString(reader, "StreetAddress"),
                                 City = DbUtils.GetString(reader, "City"),
                                 State = DbUtils.GetString(reader, "State"),
-                                ZipCode = DbUtils.GetInt(reader, "PhoneNumber"),
+                                ZipCode = DbUtils.GetInt(reader, "ZipCode"),
+                                PhoneNumber = DbUtils.GetString(reader, "PhoneNumber"),
                                 FirebaseUserId = firebaseUserId,
                                 IsActive = DbUtils.GetBool(reader, "IsActive")
 

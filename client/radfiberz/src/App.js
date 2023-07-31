@@ -1,10 +1,10 @@
 
-import { Header } from './components/header';
+import Header from './components/header';
 import './App.css';
 import React, { useState, useEffect } from "react";
 import { onLoginStatusChange, getUserDetails, firebase } from './modules/authManager';
-import { Router } from 'react-router-dom';
-import { ApplicationViews } from './components/userProfile/applicationViews';
+import { BrowserRouter as Router } from 'react-router-dom';
+import ApplicationViews from './components/applicationViews';
 
 
 function App() {
@@ -20,7 +20,8 @@ function App() {
       // firebase.auth().currentUser.uid grabs the firebaseUID -- firebase has many helpers like this
       getUserDetails(firebase.auth().currentUser.uid)
         .then(userObject => {
-          setUser(userObject.userType.name)
+          // setUser(userObject.userType.name)
+          setUser(userObject)
         })
     } else {
       setUser("")

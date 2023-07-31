@@ -6,38 +6,39 @@ import { register } from "../../modules/authManager";
 export default function Register() {
     const navigate = useNavigate();
 
-    const [firstName, setFirstName] = useState(string);
-    const [lastName, setLastName] = useState(string);
-    const [email, setEmail] = useState(string);
-    const [streetAddress, setStreetAddress] = useState(string);
-    const [city, setCity] = useState(string);
-    const [state, setState] = useState(string);
-    const [zipCode, setZipCode] = useState(int)
-    const [phoneNumber, setPhoneNumber] = useState(string)
-    const [password, setPassword] = useState(string);
-    const [confirmPassword, setConfirmPassword] = useState(string);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [streetAddress, setStreetAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zipCode, setZipCode] = useState(0)
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const registerClick = (e) => {
         e.preventDefault();
-        if (password && password !== confirmPassword) {
-            alert("Passwords don't match. Do better.");
-        } else {
-            const userProfile = {
-                firstName,
-                lastName,
-                streetAddress,
-                city,
-                state,
-                zipCode,
-                phoneNumber,
-                email,
+        // if (password && password !== confirmPassword) {
+        //     alert("Passwords don't match. Do better.");
+        // } else {
+        const userProfile = {
+            firstName,
+            lastName,
+            streetAddress,
+            city,
+            state,
+            zipCode,
+            phoneNumber,
+            email,
+            password,
 
 
-            };
+        };
 
-            register(userProfile, password).then(() => navigate("/"));
+        register(userProfile, password).then(() => navigate("/"));
 
-        }
+
     };
 
 
@@ -140,3 +141,4 @@ export default function Register() {
         </Form>
     );
 }
+

@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../../modules/authManager";
 
+
 export default function Login() {
     const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ export default function Login() {
                         id="email"
                         type="text"
                         autoFocus
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={e => setEmail(e.target.value)}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -33,7 +34,7 @@ export default function Login() {
                     <Input
                         id="password"
                         type="password"
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={e => setPassword(e.target.value)}
                     />
                 </FormGroup>
                 <FormGroup>

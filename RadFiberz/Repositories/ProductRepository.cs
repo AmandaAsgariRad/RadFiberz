@@ -19,7 +19,7 @@ namespace RadFiberz.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT p.Id, p.IsMacrame, p.IsJewelry, p.Name, p.ProductColorId, p.InventoryQuantity, p.Price, p.Description, p.ProductImage,
+                        SELECT p.Id, p.IsMacrame, p.IsJewelry, p.Name, p.InventoryQuantity, p.Price, p.Description, p.ProductImage,
                                pc.Id AS PcId, pc.ColorId, pc.ProductId,
                                c.Id AS ColorId, c.Name AS ColorName
                         FROM Product p
@@ -37,23 +37,11 @@ namespace RadFiberz.Repositories
                                 IsMacrame = DbUtils.GetBool(reader, "IsMacrame"),
                                 IsJewelry = DbUtils.GetBool(reader, "IsJewelry"),
                                 Name = DbUtils.GetString(reader, "Name"),
-                                ProductColorId = DbUtils.GetInt(reader, "ProductColorId"),
                                 InventoryQuantity = DbUtils.GetInt(reader, "InventoryQuantity"),
                                 Price = reader.GetDouble(reader.GetOrdinal("Price")),
                                 Description = DbUtils.GetString(reader, "Description"),
-                                ProductImage = DbUtils.GetString(reader, "ProductImage"),
-                                ProductColor = new ProductColor()
-                                {
-                                    Id = DbUtils.GetInt(reader, "PcId"),
-                                    ColorId = DbUtils.GetInt(reader, "ColorId"),
-                                    Color = new Color()
-                                    {
-                                        Id = DbUtils.GetInt(reader, "ColorId"),
-                                        Name = DbUtils.GetString(reader, "ColorName"),
-
-                                    }
-,
-                                },
+                                ProductImage = DbUtils.GetString(reader, "ProductImage")
+                                
                             });
                         }
 
@@ -72,7 +60,7 @@ namespace RadFiberz.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT p.Id, p.IsMacrame, p.IsJewelry, p.Name, p.ProductColorId, p.InventoryQuantity, p.Price, p.Description, p.ProductImage,
+                        SELECT p.Id, p.IsMacrame, p.IsJewelry, p.Name, p.InventoryQuantity, p.Price, p.Description, p.ProductImage,
                                pc.Id AS PcId, pc.ColorId, pc.ProductId,
                                c.Id AS ColorId, c.Name AS ColorName
                         FROM Product P
@@ -92,23 +80,11 @@ namespace RadFiberz.Repositories
                             IsMacrame = DbUtils.GetBool(reader, "IsMacrame"),
                             IsJewelry = DbUtils.GetBool(reader, "IsJewelry"),
                             Name = DbUtils.GetString(reader, "Name"),
-                            ProductColorId = DbUtils.GetInt(reader, "ProductColorId"),
                             InventoryQuantity = DbUtils.GetInt(reader, "InventoryQuantity"),
                             Price = reader.GetDouble(reader.GetOrdinal("Price")),
                             Description = DbUtils.GetString(reader, "Description"),
                             ProductImage = DbUtils.GetString(reader, "ProductImage"),
-                            ProductColor = new ProductColor()
-                            {
-                                Id = DbUtils.GetInt(reader, "PcId"),
-                                ColorId = DbUtils.GetInt(reader, "ColorId"),
-                                Color = new Color()
-                                {
-                                    Id = DbUtils.GetInt(reader, "ColorId"),
-                                    Name = DbUtils.GetString(reader, "ColorName"),
-
-                                }
-
-                            }
+                            
                         };
                     }
 

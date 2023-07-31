@@ -20,9 +20,9 @@ namespace RadFiberz.Controllers
         {
             _userProfileRepository = userProfileRepository;
         }
-            // GET: api/<UserProfileController>
-            [HttpGet("{firebaseUserId}")]
-            public IActionResult GetUserProfile(string firebaseUserId)
+        // GET: api/<UserProfileController>
+        [HttpGet("{firebaseUserId}")]
+        public IActionResult GetUserProfile(string firebaseUserId)
             {
                 return Ok(_userProfileRepository.GetByFirebaseUserId(firebaseUserId));
             }

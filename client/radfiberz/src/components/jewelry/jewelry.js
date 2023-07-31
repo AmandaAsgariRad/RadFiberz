@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { getAllProducts } from "../../modules/productManager"
 
-
 export default function Jewelry() {
     const [products, setProducts] = useState([])
     const [jewelrys, setJewelry] = useState([])

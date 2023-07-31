@@ -2,8 +2,8 @@ export default function Cart() {
 
 
     return (
-        <div>
-            Amanda needs to add content here.
-        </div>
+        <h1>
+            Shopping Cart
+        </h1>
     );
 }

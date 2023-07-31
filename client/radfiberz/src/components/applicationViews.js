@@ -11,6 +11,7 @@ import Cart from "./cart/cart";
 import UserProfile from "./userProfile/userProfile";
 import ShopAll from "./shopAll/shopAll";
 import Register from "./auth/register";
+import { Navigate } from "react-router-dom";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -22,12 +23,13 @@ export default function ApplicationViews({ isLoggedIn }) {
         <Route path="/*" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="favorites" element={<Favorite />} />
+        <Route path="favorite" element={isLoggedIn ? <Favorite /> : <Navigate to='/login' />} />
         <Route path="macrame" element={<Macrame />} />
         <Route path="jewelry" element={<Jewelry />} />
-        <Route path="userProfile" element={<UserProfile />} />
+        <Route path="userProfile" element={isLoggedIn ? <UserProfile /> : <Navigate to='/login' />} />
         <Route path="shopAll" element={<ShopAll />} />
-        <Route path="cart" element={<Cart />} />
+        <Route path="cart" element={isLoggedIn ? <Cart /> : <Navigate to='/login' />} />
+        <Route path="userProfile/:id" element={isLoggedIn ? <UserProfile /> : <Navigate to='/login' />} />
         <Route path="about" element={<About />} />
         <Route path="home" element={<Home />} />
         <Route path="*" element={<p>Whoops, nothing here...</p>} />

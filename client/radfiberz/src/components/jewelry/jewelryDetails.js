@@ -3,32 +3,32 @@ import { useParams } from 'react-router-dom';
 import { getMacrameById } from '../../api/macrameApi';
 import React from 'react';
 
-export default function MacrameDetails() {
+export default function JewelryDetails() {
     const { id } = useParams();
-    const [macrame, setMacrame] = useState(null);
+    const [jewelry, setJewelry] = useState(null);
 
     useEffect(() => {
-        getMacrameById(id)
-            .then(setMacrame)
+        getJewelryById(id)
+            .then(setJewelry)
             .catch(console.error);
     }, [id]);
 
-    if (!macrame) {
+    if (!jewelry) {
         return <p>Loading...</p>;
     }
 
     return (
         <div className="m-4 text-center">
-            <h1 className="bold">{macrame.name}</h1>
+            <h1 className="bold">{jewelry.name}</h1>
             <img
-                src={macrame.productImage}
-                alt={macrame.name}
+                src={jewelry.productImage}
+                alt={jewelry.name}
                 className="mt-5 mb-5"
                 width="100%"
                 height="200px"
             />
-            <p>{macrame.description}</p>
-            <p>Price: {macrame.price}</p>
+            <p>{jewelry.description}</p>
+            <p>Price: {jewelry.price}</p>
         </div>
     );
 }

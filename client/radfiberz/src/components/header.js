@@ -3,12 +3,10 @@ import NavbarToggle from "react-bootstrap/esm/NavbarToggle"
 import { NavLink as RRNavLink } from "react-router-dom"
 import { Navbar, NavItem, NavLink } from "reactstrap"
 import React, { useState } from 'react'
+import { logout } from "../modules/authManager"
 
 
-
-
-
-export default function Header({ isLoggedIn }) {
+export default function Header({ isLoggedIn, user }) {
     const [isOpen, setIsOpen] = useState(false)
     const toggle = () => setIsOpen(!isOpen)
 
@@ -29,15 +27,15 @@ export default function Header({ isLoggedIn }) {
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/logout">Logout</NavLink>
+                                    <a className="nav-link" onClick={logout}>Logout</a>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="favorite">Favorites</NavLink>
+                                    <NavLink tag={RRNavLink} to="/favorite">Favorites</NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/userProfile">Profile</NavLink>
+                                    <NavLink tag={RRNavLink} to={`userProfile/${user.id}`}>Profile</NavLink>
                                 </NavItem>
 
                                 <NavItem>

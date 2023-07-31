@@ -17,10 +17,8 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      // firebase.auth().currentUser.uid grabs the firebaseUID -- firebase has many helpers like this
       getUserDetails(firebase.auth().currentUser.uid)
-        .then(userObject => {
-          // setUser(userObject.userType.name)
+        .then((userObject) => {
           setUser(userObject)
         })
     } else {
@@ -28,9 +26,20 @@ function App() {
     }
   }, [isLoggedIn])
 
-  // if (isLoggedIn === null) {
-  //   return <Spinner className="app-spinner dark" />;
-  // }
+  // useEffect(() => {
+  //   onLoginStatusChange(setIsLoggedIn);
+  //   if (!firebase.auth().currentUser) {
+  //     setIsLoggedIn(false);
+  //     setUser(null);
+  //   } else {
+  //     setIsLoggedIn(true);
+  //     getUserDetails(firebase.auth().currentUser.uid)
+  //       .then((userObject) => {
+  //         setUser(userObject);
+  //       });
+  //   }
+  // }, []);
+
 
   return (
     <div className="App">
@@ -43,13 +52,6 @@ function App() {
   );
 }
 
-// return (
-//   <Router>
-//     <Header isLoggedIn={isLoggedIn} role={role} />
-//     <ApplicationViews isLoggedIn={isLoggedIn} role={role} />
-//   </Router>
-// );
-// }
 
 
 export default App;

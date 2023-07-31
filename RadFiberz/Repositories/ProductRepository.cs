@@ -19,12 +19,9 @@ namespace RadFiberz.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT p.Id, p.IsMacrame, p.IsJewelry, p.Name, p.InventoryQuantity, p.Price, p.Description, p.ProductImage,
-                               pc.Id AS PcId, pc.ColorId, pc.ProductId,
-                               c.Id AS ColorId, c.Name AS ColorName
-                        FROM Product p
-                        JOIN ProductColor pc ON p.Id = pc.ProductId
-                        JOIN Color c ON c.Id = pc.ColorId";
+                        SELECT *
+                        FROM Product";
+                        
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -60,13 +57,8 @@ namespace RadFiberz.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT p.Id, p.IsMacrame, p.IsJewelry, p.Name, p.InventoryQuantity, p.Price, p.Description, p.ProductImage,
-                               pc.Id AS PcId, pc.ColorId, pc.ProductId,
-                               c.Id AS ColorId, c.Name AS ColorName
-                        FROM Product P
-                        JOIN ProductColor pc ON p.Id = pc.ProductId
-                        JOIN Color c ON c.Id = pc.ColorId
-                        WHERE p.Id = @id";
+                        SELECT *
+                        FROM Product";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 

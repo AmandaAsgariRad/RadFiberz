@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
-import { useNavigate } from 'react-router-dom';
-import './userProfile.css';
-import { getUserDetailsById } from '../../modules/userProfileManager';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getByUserId } from '../../modules/userProfileManager';
 
 export default function UserProfile({ UserProfile }) {
     const navigate = useNavigate();
     const [userProfile, setUserProfile] = useState({});
+    const { id } = useParams();
 
 
     useEffect(() => {
-        getUserDetailsById().then(data => {
+        getByUserId(id).then(data => {
             setUserProfile(data)
         })
     }, [])

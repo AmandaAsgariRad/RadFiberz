@@ -60,6 +60,7 @@ namespace RadFiberz.Models
             }
         }
 
+        public Product Product { get; set; }
 
 
     }

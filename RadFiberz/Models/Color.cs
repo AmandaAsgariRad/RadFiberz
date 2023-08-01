@@ -10,6 +10,7 @@ namespace RadFiberz.Models
         [MaxLength(55)]
         public string Name { get; set; }
         public UserProfile UserProfile { get; set; }
+       
 
     }
 }

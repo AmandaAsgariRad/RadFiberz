@@ -36,14 +36,26 @@ namespace RadFiberz.Controllers
             return Ok(product);
 
         }
+
+        // POST/add product api/<ProductController>
+        //[HttpPost]
+        //public IActionResult AddProduct(Product product)
+        //{
+        //    _productRepository.Add(product);
+        //    return CreatedAtAction("Get", new { id = product.Id }, product);
+        //}
+
+        // DELETE favorite api/<ProductController>/5
+        [HttpDelete("{id}")]
+        public IActionResult DeleteProduct(int id)
+        {
+            _productRepository.Delete(id);
+            return NoContent();
+        }
     }
 }
 
-//        // POST api/<ProductController>
-//        [HttpPost]
-//        public void Post([FromBody] string value)
-//        {
-//        }
+//        
 
 //        // PUT api/<ProductController>/5
 //        [HttpPut("{id}")]
@@ -51,10 +63,6 @@ namespace RadFiberz.Controllers
 //        {
 //        }
 
-//        // DELETE api/<ProductController>/5
-//        [HttpDelete("{id}")]
-//        public void Delete(int id)
-//        {
-//        }
-//    }
-//}
+
+
+

@@ -31,7 +31,7 @@ namespace RadFiberz.Controllers
             return Ok(favorites);
         }
 
-        // POST/ADD api/<FavoriteController>
+        // POST/ADD favorite api/<FavoriteController>
         [HttpPost]
         public IActionResult AddFavorite(Favorite favorite)
         {
@@ -45,7 +45,7 @@ namespace RadFiberz.Controllers
         //{
         //}
 
-        // DELETE api/<FavoriteController>/5
+        // DELETE favorite api/<FavoriteController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

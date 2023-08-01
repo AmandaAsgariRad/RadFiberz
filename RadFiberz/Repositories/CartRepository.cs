@@ -24,7 +24,7 @@ namespace RadFiberz.Repositories
                                col.Id AS ClrId, col.Name AS ColorName
                         FROM Cart c
                         JOIN Product p ON c.ProductId = p.Id
-                        JOIN ProductColor pc ON p.ProductColorId = pc.Id
+                        JOIN ProductColor pc ON c.ProductColorId = pc.Id
                         JOIN Color col ON pc.ColorId = col.Id
                         WHERE c.Id = @id";
 
@@ -78,7 +78,7 @@ namespace RadFiberz.Repositories
                                col.Id AS ClrId, col.Name AS ColorName
                         FROM Cart c
                         JOIN Product p ON c.ProductId = p.Id
-                        JOIN ProductColor pc ON p.ProductColorId = pc.Id
+                        JOIN ProductColor pc ON c.ProductColorId = pc.Id
                         JOIN Color col ON pc.ColorId = col.Id
                         WHERE c.UserId = @userId";
 
@@ -176,7 +176,7 @@ namespace RadFiberz.Repositories
                     DbUtils.AddParameter(cmd, "ProductId", cart.ProductId);
                     DbUtils.AddParameter(cmd, "@ProductQuantity", cart.ProductQuantity);
                     DbUtils.AddParameter(cmd, "@UserId", cart.UserId);
-                    //DbUtils.AddParameter(cmd, "@ProductColorId", cart.ProductColorId);
+                    DbUtils.AddParameter(cmd, "@ProductColorId", cart.ProductColorId);
                     DbUtils.AddParameter(cmd, "@OrderComplete", cart.OrderComplete);
 
                     cart.Id = (int)cmd.ExecuteScalar();

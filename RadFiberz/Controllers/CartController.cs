@@ -50,7 +50,7 @@ namespace RadFiberz.Controllers
 
         // POST/Add api/<CartController>
         [HttpPost]
-        public IActionResult AddCart([FromBody] Cart cart)
+        public IActionResult AddCart(Cart cart)
         {
             if (cart == null)
             {
@@ -64,7 +64,7 @@ namespace RadFiberz.Controllers
 
         // PUT/Update api/<CartController>/5
         [HttpPut("{id}")]
-        public IActionResult UpdateCart(int id, [FromBody] Cart cart)
+        public IActionResult UpdateCart(int id, Cart cart)
         {
             if (cart == null || cart.Id != id)
             {

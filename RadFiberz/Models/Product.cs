@@ -28,6 +28,8 @@ namespace RadFiberz.Models
         public List<ProductColor> ProductColors { get; set; }
         public Cart Cart { get; set; }
         
+        public Color Color { get; set; }
+        
 
 
 

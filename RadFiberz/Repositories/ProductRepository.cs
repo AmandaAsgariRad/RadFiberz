@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using RadFiberz.Utils;
 using System.Data.Common;
+using System.Security.Cryptography;
 
 namespace RadFiberz.Repositories
 {
@@ -86,7 +87,36 @@ namespace RadFiberz.Repositories
             }
         }
 
+        //public void Add(Product product)
+        //{
+        //    using (var conn = Connection)
+        //    {
+        //        conn.Open();
+        //        using (var cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"
+        //                INSERT INTO Product"
+        //        }
+        //    }
+        //}
 
+        public void Delete(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE FROM Product
+                        WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
     }
 }

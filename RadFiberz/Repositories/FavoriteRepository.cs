@@ -95,8 +95,8 @@ namespace RadFiberz.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                DELETE FROM Favorite
-                WHERE Id = @Id";
+                        DELETE FROM Favorite
+                        WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
@@ -107,9 +107,5 @@ namespace RadFiberz.Repositories
     }
 }
 
-    //add to GetAllByUserId method
-    //pc.Id AS PrdctClrId, pc.ProductId AS ProdId, pc.ColorId,
-    //c.Id AS ClrId, c.Name
-    //    JOIN ProductColor pc ON p.Id = pc.PrdctClrId
-    //            JOIN Color c ON pc.PrdctClrId = c.ClrId
+               
 

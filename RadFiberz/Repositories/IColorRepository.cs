@@ -1,12 +1,15 @@
-﻿//using RadFiberz.Models;
-//using System.Collections.Generic;
+﻿using RadFiberz.Models;
+using System.Collections.Generic;
 
-//namespace RadFiberz.Repositories
-//{
-//    public interface IColorRepository
-//    {
-//        public List<Color> GetAll();
-//        List<Color> GetAllProductColors();
-//        Color GetById(int id);
-//    }
-//}
+namespace RadFiberz.Repositories
+{
+    public interface IColorRepository
+    {
+        void AddProductColor(ProductColor productColor);
+        void DeletePcById(int id);
+        public List<Color> GetAll();
+        List<ProductColor> GetAllProductColors();
+        Color GetById(int id);
+        ProductColor GetPcByUserId(int userId);
+    }
+}

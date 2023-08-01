@@ -31,7 +31,7 @@ namespace RadFiberz
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
-            //services.AddTransient<IColorRepository, ColorRepository>();
+            services.AddTransient<IColorRepository, ColorRepository>();
             services.AddTransient<IFavoriteRepository, FavoriteRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ICartRepository, CartRepository>();

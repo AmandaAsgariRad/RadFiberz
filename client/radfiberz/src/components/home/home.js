@@ -11,8 +11,6 @@ export default function Home() {
         <section>
             <h1>Home</h1>
             <Link to="/shopAll">Shop All</Link>
-            <Link to="/macrame">Macrame</Link>
-            <Link to="/jewelry">Jewelry</Link>
         </section>
     )
 }

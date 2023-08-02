@@ -1,30 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getAllProducts } from '../../modules/productManager';
+import { Navigate, useParams } from 'react-router-dom';
+import { addProductColor, getAllProducts } from '../../modules/productManager';
 import { Card, CardSubtitle, CardText, CardTitle, CardBody } from 'reactstrap';
 import { Col, Row, CardImg, Button } from 'react-bootstrap';
 import { getAllColors } from '../../modules/productManager';
 import { addItemToCart } from '../../modules/cartManager';
+import { addFavorite } from '../../modules/favoriteManager';
 
 
 export default function ProductDetails() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userProfileId = user.id;
+
     const { id } = useParams();
     const [item, setItem] = useState(null);
     const [colors, setColors] = useState([])
     const [products, setProducts] = useState([])
     const [cartProduct, setCartProduct] = useState({
-        productId: 0,
-        quantity: 1,
-        userId: 0,
+        productId: parseInt(id),
+        productQuantity: 1,
+        userId: userProfileId,
         productColorId: 0,
         orderComplete: false
     })
     const [productColor, setProductColor] = useState({
-        productId: 0,
+        productId: parseInt(id),
         colorId: 0,
-        userId: 0
+        userId: userProfileId
     })
-
+    const [favorite, setFavorite] = useState({
+        productId: parseInt(id),
+        userId: userProfileId
+    })
 
     useEffect(() => {
         getAllProducts().then(data => {
@@ -42,74 +49,50 @@ export default function ProductDetails() {
         }
     }, [products])
 
-    // useEffect(() => {
-    //     addItemToCart()
-    // }, [productColor])
 
-    // const updateCart = () => {
-    //     const newCartProduct = { ...cartProduct }
-    //     newCartProduct.productId = parseInt(id)
-    //     newCartProduct.userId = parseInt(localStorage.getItem("userProfile"))
-    //     newCartProduct.productColorId = productColor.colorId
-    //     setCartProduct(newCartProduct)
-    // }
-
-
-    const handleColor = (event) => {
-        const newColor = { ...productColor }
-        newColor.colorId = parseInt(event.target.value)
+    const handleColor = (colorId) => {
+        const newColor = {
+            productId: parseInt(id),
+            colorId: parseInt(colorId),
+            userId: userProfileId
+        }
         setProductColor(newColor)
     }
 
-    const handleAddToCart = () => {
-        const newCartProduct = { ...cartProduct }
-        newCartProduct.productId = parseInt(id)
-        newCartProduct.userId = parseInt(localStorage.getItem("userProfile"))
-        newCartProduct.productColorId = productColor.colorId
-        setCartProduct(newCartProduct)
-        addItemToCart(cartProduct)
+    const handleRedirectToCart = () => {
+        window.alert("Item added to cart!");
+        Navigate("/cart");
     }
 
+    const handleAddToCart = () => {
+        addProductColor(productColor)
+            .then((data) => {
+                console.log(data)
+                const tempCartProduct = { ...cartProduct };
+                tempCartProduct.productColorId = data;
+                setCartProduct(tempCartProduct);
+                console.log(tempCartProduct)
+                addItemToCart(tempCartProduct)
+                handleRedirectToCart();
+            })
+    };
 
+
+
+    const handleAddToFavorite = () => {
+        addFavorite(favorite)
+            .then(() => {
+                window.location.href = '/favorite';
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
 
 
     if (!item) {
         return <p>Loading...</p>;
     }
-
-    //to center
-    // return (
-    //     <div className='text-center'>
-    //         <Card className="item-card">
-    //             <Row>
-    //                 <Col xs={12} md={8}>
-    //                     <CardBody className="details">
-    //                         <CardTitle>{item.name}</CardTitle>
-    //                         <CardSubtitle>{item.description}</CardSubtitle>
-    //                         <CardText>Price: ${item.price}</CardText>
-    //                         {item.isMacrame && (
-    //                             <div>
-    //                                 <label htmlFor="color" style={{ marginRight: '1rem' }}>Choose a color: </label>
-    //                                 <select className="form-select" id="colorDropdown" onChange={handleColor}>
-    //                                     {colors.map((color) => (
-    //                                         <option key={color.id} value={color.name}>
-    //                                             {color.name}
-    //                                         </option>
-    //                                     ))}
-    //                                 </select>
-    //                             </div>
-    //                         )}
-    //                         <Button style={{ marginTop: '2rem' }} onClick={handleAddToCart}>Add to Cart</Button>
-    //                     </CardBody>
-    //                 </Col>
-    //                 <Col xs={12} md={4}>
-    //                     <CardImg variant="top" src={item.productImage} alt={item.name} />
-    //                 </Col>
-    //             </Row>
-    //         </Card>
-    //     </div>
-    // );
-
 
     return (
         <Card className="item-card" style={{ marginTop: '10rem' }}>
@@ -124,10 +107,12 @@ export default function ProductDetails() {
                         <CardText style={{ marginTop: '1rem' }}>Price: ${item.price}</CardText>
                         {item.isMacrame && (
                             <div>
-                                <label htmlFor="color" style={{ marginRight: '1rem' }}>Choose a color: </label>
-                                <select className="form-select" id="colorDropdown" onChange={handleColor}>
+                                <select className="form-select" onChange={(e) => handleColor(e.target.value)}>
+                                    <option disabled selected>
+                                        Choose a color
+                                    </option>
                                     {colors.map((color) => (
-                                        <option key={color.id} value={color.name}>
+                                        <option key={color.id} value={color.id}>
                                             {color.name}
                                         </option>
                                     ))}
@@ -135,6 +120,7 @@ export default function ProductDetails() {
                             </div>
                         )}
                         <Button style={{ marginTop: '2rem' }} onClick={handleAddToCart}>Add to Cart</Button>
+                        <Button style={{ marginTop: '2rem', marginLeft: '2rem' }} onClick={handleAddToFavorite}>Add to Favorite</Button>
                     </CardBody>
                 </Col>
             </Row>

@@ -10,6 +10,7 @@ import ShopAll from "./ShopAll/shopAll";
 import Register from "./Auth/register";
 import { Navigate } from "react-router-dom";
 import ProductDetails from "./Product/productDetails";
+import Order from "./Order/order";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -32,6 +33,7 @@ export default function ApplicationViews({ isLoggedIn }) {
         <Route path="userProfile/:id" element={isLoggedIn ? <UserProfile /> : <Navigate to='/login' />} />
         <Route path="about" element={<About />} />
         <Route path="home" element={<Home />} />
+        <Route path="order" element={<Order />} />
         <Route path="*" element={<p>Whoops, nothing here...</p>} />
 
       </Routes>

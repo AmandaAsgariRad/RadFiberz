@@ -62,7 +62,7 @@ namespace RadFiberz.Controllers
         public IActionResult AddPc(ProductColor productColor)
         {
             _colorRepository.AddProductColor(productColor);
-            return CreatedAtAction("Get", new { id = productColor.Id }, productColor);
+            return Ok(productColor.Id);
         }
 
         //// PUT api/<ColorController>/5

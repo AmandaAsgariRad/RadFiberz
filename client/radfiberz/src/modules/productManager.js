@@ -14,13 +14,13 @@ export const getProductById = (id) => {
 
 //crud productColor function
 export const addProductColor = (productColor) => {
-    return fetch("/api/ProductColor", {
+    return fetch("/api/Color", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(productColor),
-    });
+    }).then((res) => res.json());
 };
 
 export const getAllColors = () => {
@@ -30,7 +30,7 @@ export const getAllColors = () => {
 };
 
 export const getAllProductColors = () => {
-    return fetch("/api/ProductColor", {
+    return fetch("/api/Color", {
         method: "GET",
     }).then((res) => res.json());
 }

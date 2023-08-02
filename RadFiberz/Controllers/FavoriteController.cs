@@ -36,7 +36,7 @@ namespace RadFiberz.Controllers
         public IActionResult AddFavorite(Favorite favorite)
         {
             _favoriteRepository.Add(favorite);
-            return CreatedAtAction("Get", new { id = favorite.Id }, favorite);
+            return Ok(favorite);
         }
 
         //// PUT api/<FavoriteController>/5

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllFavoritesByUserId } from '../../modules/favoriteManager';
 import { Card, CardImg, CardBody, CardTitle, Row, Col, Container } from 'reactstrap';
 import { Button } from 'react-bootstrap';
-
+import { deleteFavorite } from '../../modules/favoriteManager';
 
 
 export default function Favorite() {
@@ -36,12 +36,37 @@ export default function Favorite() {
         window.location.href = `/jewelry/${id}`
     }
 
-    // const handleRemoveFromFavorites = (id) => {
-    //     if (window.confirm("Are you sure you want to remove this item from your favorites?")) {
 
+    const handleRemoveFromFavorites = (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to remove this item from your favorites?");
+        if (confirmDelete) {
+            deleteFavorite(id)
+                .then(() => {
+                    window.location.href = "/favorite";
+                })
+                .catch(error => {
+                    alert("There was an error removing this item from your favorites.");
+                    console.error(error);
+                });
+        }
+    };
+
+    // const handleRemoveFromFavorites = (id) => {
+    //     const confirmDelete = window.confirm("Are you sure you want to remove this item from your favorites?");
+    //     if (confirmDelete) {
+    //         deleteFavorite(id)
+    //             .then(() => {
+    //                 window.location.href = "/favorite";
+    //             });
+    //     } else {
+    //         alert("There was an error removing this item from your favorites.");
     //     }
+    // };
+
+
 
     return (
+
         <Container>
             <div id='favorites-header'>
                 <h1>Favorites</h1>
@@ -55,6 +80,7 @@ export default function Favorite() {
                                 <CardImg variant="top" src={macrame.product.productImage} alt={macrame.product.name} />
                                 <CardBody>
                                     <CardTitle>{macrame.product.name}</CardTitle>
+                                    <Button style={{ marginTop: '2rem' }} onClick={() => handleRemoveFromFavorites(macrame.product.id)}>Remove</Button>
                                 </CardBody>
                             </Card>
                         </Col>
@@ -68,7 +94,7 @@ export default function Favorite() {
                                 <CardImg variant="top" src={jewelry.product.productImage} alt={jewelry.product.name} />
                                 <CardBody>
                                     <CardTitle>{jewelry.product.name}</CardTitle>
-                                    {/* <Button onClick={() => handleRemoveFromFavorites(jewelry.product.id)}>Remove from Favorites</Button> */}
+                                    <Button style={{ marginTop: '2rem' }} onClick={() => handleRemoveFromFavorites(jewelry.product.id)}>Remove</Button>
                                 </CardBody>
                             </Card>
                         </Col>

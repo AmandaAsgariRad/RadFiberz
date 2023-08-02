@@ -47,7 +47,7 @@ namespace RadFiberz.Controllers
 
         // DELETE favorite api/<FavoriteController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteFavorite(int id)
         {
             _favoriteRepository.Delete(id);
             return NoContent();

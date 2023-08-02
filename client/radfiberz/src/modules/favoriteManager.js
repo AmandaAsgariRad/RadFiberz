@@ -13,3 +13,13 @@ export const getAllFavoritesByUserId = (userId) => {
             return data;
         });
 };
+
+export const deleteFavorite = (id) => {
+    return fetch(`${baseUrl}/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+}

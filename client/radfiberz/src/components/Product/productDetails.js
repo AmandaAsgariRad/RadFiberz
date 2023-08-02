@@ -77,21 +77,54 @@ export default function ProductDetails() {
         return <p>Loading...</p>;
     }
 
+    //to center
+    // return (
+    //     <div className='text-center'>
+    //         <Card className="item-card">
+    //             <Row>
+    //                 <Col xs={12} md={8}>
+    //                     <CardBody className="details">
+    //                         <CardTitle>{item.name}</CardTitle>
+    //                         <CardSubtitle>{item.description}</CardSubtitle>
+    //                         <CardText>Price: ${item.price}</CardText>
+    //                         {item.isMacrame && (
+    //                             <div>
+    //                                 <label htmlFor="color" style={{ marginRight: '1rem' }}>Choose a color: </label>
+    //                                 <select className="form-select" id="colorDropdown" onChange={handleColor}>
+    //                                     {colors.map((color) => (
+    //                                         <option key={color.id} value={color.name}>
+    //                                             {color.name}
+    //                                         </option>
+    //                                     ))}
+    //                                 </select>
+    //                             </div>
+    //                         )}
+    //                         <Button style={{ marginTop: '2rem' }} onClick={handleAddToCart}>Add to Cart</Button>
+    //                     </CardBody>
+    //                 </Col>
+    //                 <Col xs={12} md={4}>
+    //                     <CardImg variant="top" src={item.productImage} alt={item.name} />
+    //                 </Col>
+    //             </Row>
+    //         </Card>
+    //     </div>
+    // );
+
 
     return (
-        <Card className="item-card">
-            <Row>
-                <Col xs={12} md={4}>
+        <Card className="item-card" style={{ marginTop: '10rem' }}>
+            <Row className="justify-content-center align-items-center">
+                <Col xs={12} md={4} className="text-center">
                     <CardImg variant="top" src={item.productImage} alt={item.name} />
                 </Col>
                 <Col xs={12} md={8}>
-                    <CardBody className="details">
+                    <CardBody className="details text-center text-md-start">
                         <CardTitle>{item.name}</CardTitle>
-                        <CardSubtitle>{item.description}</CardSubtitle>
-                        <CardText>Price: {item.price}</CardText>
+                        <CardSubtitle style={{ marginTop: '1rem' }}>{item.description}</CardSubtitle>
+                        <CardText style={{ marginTop: '1rem' }}>Price: ${item.price}</CardText>
                         {item.isMacrame && (
                             <div>
-                                <label for="color">Choose a color:</label>
+                                <label htmlFor="color" style={{ marginRight: '1rem' }}>Choose a color: </label>
                                 <select className="form-select" id="colorDropdown" onChange={handleColor}>
                                     {colors.map((color) => (
                                         <option key={color.id} value={color.name}>
@@ -101,7 +134,7 @@ export default function ProductDetails() {
                                 </select>
                             </div>
                         )}
-                        <Button onClick={handleAddToCart}>Add to Cart</Button>
+                        <Button style={{ marginTop: '2rem' }} onClick={handleAddToCart}>Add to Cart</Button>
                     </CardBody>
                 </Col>
             </Row>

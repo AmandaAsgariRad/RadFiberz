@@ -59,7 +59,7 @@ namespace RadFiberz.Controllers
 
             _cartRepository.Add(cart);
 
-            return CreatedAtRoute("GetCartById", new { id = cart.Id }, cart);
+            return Ok();
         }
 
         // PUT/Update api/<CartController>/5

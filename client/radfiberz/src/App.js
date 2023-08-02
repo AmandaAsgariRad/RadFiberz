@@ -8,7 +8,7 @@ import ApplicationViews from './components/applicationViews';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null),
+  const [isLoggedIn, setIsLoggedIn] = useState(false),
     [user, setUser] = useState(null);
 
   useEffect(() => {

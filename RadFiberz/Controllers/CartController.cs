@@ -25,7 +25,7 @@ namespace RadFiberz.Controllers
         //}
 
         // GET by UserId api/<CartController>/5
-        [HttpGet("details/byUserId/{userId}")]
+        [HttpGet("details/{userId}")]
         public IActionResult GetCartByUserId(int userId)
         {
             var cart = _cartRepository.GetByUserId(userId);
@@ -37,8 +37,8 @@ namespace RadFiberz.Controllers
         }
 
         // GET by Id api/<CartController>/5
-        [HttpGet("details/byId/{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("details/{id}")]
+        public IActionResult GetCartById(int id)
         {
             var cart = _cartRepository.GetById(id);
             if (cart == null)
@@ -89,11 +89,20 @@ namespace RadFiberz.Controllers
         }
 
         // DELETE api/<CartController>/5
-        [HttpDelete("{productId}")]
-        public IActionResult DeleteProductInCart(int productId)
+        [HttpDelete("deleteItem/{productId}")]
+        public IActionResult DeleteByProdId(int productId)
         {
 
-            _cartRepository.Delete(productId);
+            _cartRepository.DeleteByProductId(productId);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{userId}")]
+        public IActionResult DeleteByUserProfileId(int userId)
+        {
+
+            _cartRepository.DeleteByUserId(userId);
 
             return NoContent();
         }

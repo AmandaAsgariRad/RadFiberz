@@ -116,7 +116,7 @@ namespace RadFiberz.Repositories
             }
         }
 
-        public void Delete(int productId)
+        public void DeleteByProductId(int productId)
         {
             using (var conn = Connection)
             {
@@ -130,6 +130,24 @@ namespace RadFiberz.Repositories
                     DbUtils.AddParameter(cmd, "@productId", productId);
 
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteByUserId(int userId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE FROM Cart
+                        WHERE UserId = @userId";
+
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+
+                    cmd.ExecuteNonQuery();             
                 }
             }
         }

@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 
+
 const _apiUrl = "/api/userprofile";
 
 //create function that gets token from firebase
@@ -54,17 +55,45 @@ const _saveUser = (userProfile) => {
 
 
 
+// export const login = (email, pw) => {
+//     return firebase.auth().signInWithEmailAndPassword(email, pw)
+//         .then((signInResponse) => _doesUserExist(signInResponse.user.uid))
+//         .then((doesUserExist) => {
+//             if (!doesUserExist) {
+
+//                 // If we couldn't find the user in our app's database, or the user is deactivated, we should logout of firebase
+//                 logout();
+
+//                 throw new Error("Something's wrong. The user exists in firebase, but not in the application database. (User may be deactivated)");
+//             }
+//         }).catch(err => {
+//             console.error(err);
+//             throw err;
+//         });
+// };
+
 export const login = (email, pw) => {
+    let signInResponse; // declare variable outside of .then() callbacks
     return firebase.auth().signInWithEmailAndPassword(email, pw)
-        .then((signInResponse) => _doesUserExist(signInResponse.user.uid))
+        .then((response) => {
+            signInResponse = response; // save response to variable
+            return _doesUserExist(response.user.uid);
+        })
         .then((doesUserExist) => {
             if (!doesUserExist) {
-
-                // If we couldn't find the user in our app's database, or the user is deactivated, we should logout of firebase
                 logout();
-
                 throw new Error("Something's wrong. The user exists in firebase, but not in the application database. (User may be deactivated)");
             }
+            // Save the user's ID and authentication token to the local storage
+            localStorage.setItem("userProfile", signInResponse.user.uid);
+            signInResponse.user.getIdToken().then((token) => {
+                localStorage.setItem("authToken", token);
+                getUserDetails(signInResponse.user.uid).then((user) => {
+                    localStorage.setItem("user", JSON.stringify(user));
+                });
+            });
+
+            return signInResponse;
         }).catch(err => {
             console.error(err);
             throw err;

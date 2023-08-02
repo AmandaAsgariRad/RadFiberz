@@ -1,15 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Login from "./auth/login";
-import Home from "./home/home";
-import About from "./about/about";
-import Favorite from "./favorites/favorite";
-import Macrame from "./Product/macrame";
-import Jewelry from "./Product/jewelry";
-import Cart from "./cart/cart";
-import UserProfile from "./userProfile/userProfile";
-import ShopAll from "./shopAll/shopAll";
-import Register from "./auth/register";
+import Login from "./Auth/login";
+import Home from "./Home/home";
+import About from "./About/about";
+import Favorite from "./Favorites/favorite";
+import Cart from "./Cart/cart";
+import UserProfile from "./UserProfile/userProfile";
+import ShopAll from "./ShopAll/shopAll";
+import Register from "./Auth/register";
 import { Navigate } from "react-router-dom";
 import ProductDetails from "./Product/productDetails";
 

@@ -24,7 +24,7 @@ namespace RadFiberz.Controllers
         //}
 
         // GET by UserId api/<FavoriteController>/5
-        [HttpGet("details/{userId}")]
+        [HttpGet("{userId}")]
         public IActionResult GetByUserId(int userId)
         {
             List<Favorite> favorites = _favoriteRepository.GetAllByUserId(userId);

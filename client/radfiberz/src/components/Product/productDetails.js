@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getAllProducts } from '../../modules/productManager';
 import { Card, CardSubtitle, CardText, CardTitle, CardBody } from 'reactstrap';
-import { Col, Row, CardImg } from 'react-bootstrap';
+import { Col, Row, CardImg, Button } from 'react-bootstrap';
 import { getAllColors } from '../../modules/productManager';
+import { addItemToCart } from '../../modules/cartManager';
 
 
 export default function ProductDetails() {
@@ -41,6 +42,18 @@ export default function ProductDetails() {
         }
     }, [products])
 
+    // useEffect(() => {
+    //     addItemToCart()
+    // }, [productColor])
+
+    // const updateCart = () => {
+    //     const newCartProduct = { ...cartProduct }
+    //     newCartProduct.productId = parseInt(id)
+    //     newCartProduct.userId = parseInt(localStorage.getItem("userProfile"))
+    //     newCartProduct.productColorId = productColor.colorId
+    //     setCartProduct(newCartProduct)
+    // }
+
 
     const handleColor = (event) => {
         const newColor = { ...productColor }
@@ -49,8 +62,15 @@ export default function ProductDetails() {
     }
 
     const handleAddToCart = () => {
-
+        const newCartProduct = { ...cartProduct }
+        newCartProduct.productId = parseInt(id)
+        newCartProduct.userId = parseInt(localStorage.getItem("userProfile"))
+        newCartProduct.productColorId = productColor.colorId
+        setCartProduct(newCartProduct)
+        addItemToCart(cartProduct)
     }
+
+
 
 
     if (!item) {
@@ -81,7 +101,7 @@ export default function ProductDetails() {
                                 </select>
                             </div>
                         )}
-                        <button onClick={handleAddToCart}>Add to Cart</button>
+                        <Button onClick={handleAddToCart}>Add to Cart</Button>
                     </CardBody>
                 </Col>
             </Row>

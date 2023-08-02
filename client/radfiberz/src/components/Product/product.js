@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { getAllProducts } from "../../modules/productManager"
 import { Navigate } from "react-router"
-
-
+import { Card, Col, Row } from "react-bootstrap"
+import { CardBody, CardImg, CardTitle } from "reactstrap"
 
 export default function Macrame() {
     const [products, setProducts] = useState([])
@@ -33,55 +33,31 @@ export default function Macrame() {
     return (
         <div>
             <h1>Macrame</h1>
-            {macrames.map(macrame => {
-                return (
-                    <div key={macrame.id}>
-                        <img src={macrame.imageUrl} alt={macrame.name} onClick={() => navigateToProductDetails(macrame.id)} />
-                        <p>{macrame.name}</p>
-                    </div>
-                );
-            })}
+            <Row>
+                {products.filter(product => product.category === 'macrame').map(macrame => (
+                    <Col sm={6} md={4} lg={3} key={macrame.id}>
+                        <Card onClick={() => navigateToProductDetails(macrame.id)}>
+                            <CardImg variant="top" src={macrame.imageUrl} alt={macrame.name} />
+                            <CardBody>
+                                <CardTitle>{macrame.name}</CardTitle>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
             <h1>Jewelry</h1>
-            {jewelrys.map(jewelry => {
-                return (
-                    <div key={jewelry.id}>
-                        <img src={jewelry.productImage} alt={jewelry.name} onClick={() => navigateToProductDetails(jewelry.id)} />
-                        <p>{jewelry.name}</p>
-                    </div>
-                );
-            })}
+            <Row>
+                {products.filter(product => product.category === 'jewelry').map(jewelry => (
+                    <Col sm={6} md={4} lg={3} key={jewelry.id}>
+                        <Card onClick={() => navigateToProductDetails(jewelry.id)}>
+                            <CardImg variant="top" src={jewelry.productImage} alt={jewelry.name} />
+                            <CardBody>
+                                <CardTitle>{jewelry.name}</CardTitle>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
         </div>
     );
 }
-
-//     if (product.isMacrame) {
-//         return (
-//             <div>
-//                 <h1>Macrame</h1>
-//                 {macrames.map(macrame => {
-//                     return (
-//                         <div key={macrame.id}>
-//                             <img src={macrame.imageUrl} alt={macrame.name} onClick={() => navigateToMacrameDetails(macrame.id)} />
-//                             <p>{macrame.name}</p>
-//                         </div>
-//                     );
-//                 })}
-//             </div>
-//         );
-//     }
-//     else {
-//         return (
-//             <section>
-//                 <h1>Jewelry</h1>
-//                 {jewelrys.map(jewelry => {
-//                     return (
-//                         <div key={jewelry.id}>
-//                             <img src={jewelry.productImage} alt={jewelry.name} onClick={() => navigateToJewelryDetails(jewelry.id)} />
-//                             <p>{jewelry.name}</p>
-//                         </div>
-//                     );
-//                 })}
-//             </section>
-//         );
-//     }
-// }

@@ -65,6 +65,7 @@ export default function Cart() {
                         ...cart.filter((item) => item.id !== cartId),
                         updatedCartItemWithColor,
                     ]);
+                    window.location.reload();
                 });
             }
         }

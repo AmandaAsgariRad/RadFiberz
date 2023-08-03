@@ -20,32 +20,17 @@ export default function UserProfile({ UserProfile }) {
 
     return (
         <Card>
-            <CardHeader>
-                <h1>User Profile</h1>
-            </CardHeader>
-            <CardBody>
+            <h1 className="mt-5 mb-4 text-center">User Profile</h1>
+            <CardBody style={{ paddingBottom: '10rem' }} className="mt-3 lead text-center">
                 <CardTitle>{userProfile.firstName} {userProfile.lastName}</CardTitle>
                 <CardText>
-                    <div><strong>Address:</strong> {userProfile.streetAddress}, {userProfile.city}, {userProfile.state} {userProfile.zipCode}</div>
-                    <div><strong>Phone:</strong> {userProfile.phoneNumber}</div>
-                    <div><strong>Email:</strong> {userProfile.email}</div>
+                    <div>{userProfile.streetAddress}, {userProfile.city}, {userProfile.state} {userProfile.zipCode}</div>
+                    <div>{userProfile.phoneNumber}</div>
+                    <div>{userProfile.email}</div>
                 </CardText>
-                <Button onClick={() => navigate("/userProfile/edit")}>Edit</Button>
+                <Button style={{ marginTop: '1rem' }} class="btn btn-success" onClick={() => navigate("/userProfile/edit")}>Edit</Button>
             </CardBody>
         </Card>
     );
 }
-
-    // return (
-    //     <section>
-    //         <h1>User Profile</h1>
-    //         <h2>{userProfile.firstName} {userProfile.lastName}</h2>
-    //         <h3>{userProfile.streetAddress}</h3>
-    //         <h3>{userProfile.city}, {userProfile.state} {userProfile.zipCode}</h3>
-    //         <h3>{userProfile.phoneNumber}</h3>
-    //         <h3>{userProfile.email}</h3>
-    //         <Button onClick={() => navigate("/userProfile/edit")}>Edit</Button>
-
-    //     </section>
-    // )
 

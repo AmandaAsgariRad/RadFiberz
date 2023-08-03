@@ -29,8 +29,8 @@ export const getAllColors = () => {
     }).then((res) => res.json());
 };
 
-export const getAllProductColors = () => {
-    return fetch("/api/Color", {
+export const getAllProductColors = (userId) => {
+    return fetch(`/api/Color/ProductColors/${userId}`, {
         method: "GET",
     }).then((res) => res.json());
 }

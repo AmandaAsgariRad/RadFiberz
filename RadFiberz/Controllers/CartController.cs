@@ -12,9 +12,11 @@ namespace RadFiberz.Controllers
     public class CartController : ControllerBase
     {
         private readonly ICartRepository _cartRepository;
-        public CartController(ICartRepository cartRepository)
+        private readonly IColorRepository _colorRepository;
+        public CartController(ICartRepository cartRepository, IColorRepository colorRepository)
         {
             _cartRepository = cartRepository;
+            _colorRepository = colorRepository;
         }
 
         //// GET: api/<CartController>
@@ -25,15 +27,15 @@ namespace RadFiberz.Controllers
         //}
 
         // GET by UserId api/<CartController>/5
-        [HttpGet("details/{userId}")]
+        [HttpGet("{userId}")]
         public IActionResult GetCartByUserId(int userId)
         {
-            var cart = _cartRepository.GetByUserId(userId);
-            if (cart == null)
+            List<Cart> carts = _cartRepository.GetByUserId(userId);
+            if (carts == null)
             {
                 return NotFound();
             }
-            return Ok(cart);
+            return Ok(carts);
         }
 
         // GET by Id api/<CartController>/5
@@ -89,11 +91,12 @@ namespace RadFiberz.Controllers
         }
 
         // DELETE api/<CartController>/5
-        [HttpDelete("deleteItem/{productId}")]
-        public IActionResult DeleteByProdId(int productId)
+        [HttpDelete("deleteItem/{productColorId}")]
+        public IActionResult DeleteByPcId(int productColorId)
         {
 
-            _cartRepository.DeleteByProductId(productId);
+            _cartRepository.DeleteByProductColorId(productColorId);
+            _colorRepository.DeletePcById(productColorId);
 
             return NoContent();
         }

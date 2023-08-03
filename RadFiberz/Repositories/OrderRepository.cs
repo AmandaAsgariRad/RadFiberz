@@ -60,37 +60,38 @@ namespace RadFiberz.Repositories
                                     Price = reader.GetDouble(reader.GetOrdinal("Price")),
                                     Description = DbUtils.GetString(reader, "Description"),
                                     ProductImage = DbUtils.GetString(reader, "ProductImage"),
-                                    Cart = new Cart()
+                                },
+                                UserProfile = new UserProfile()
+                                {
+                                    Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                    FirstName = DbUtils.GetString(reader, "FirstName"),
+                                    LastName = DbUtils.GetString(reader, "LastName"),
+                                    Email = DbUtils.GetString(reader, "Email"),
+                                    StreetAddress = DbUtils.GetString(reader, "StreetAddress"),
+                                    City = DbUtils.GetString(reader, "City"),
+                                    State = DbUtils.GetString(reader, "State"),
+                                    ZipCode = DbUtils.GetInt(reader, "ZipCode"),
+                                    PhoneNumber = DbUtils.GetString(reader, "PhoneNumber"),
+                                    FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
+                                    IsActive = DbUtils.GetBool(reader, "IsActive")
+                                },
+                                Cart = new Cart()
+                                {
+                                    Id = DbUtils.GetInt(reader, "Id"),
+                                    ProductId = DbUtils.GetInt(reader, "CartProductId"),
+                                    ProductQuantity = DbUtils.GetInt(reader, "ProductQuantity"),
+                                    UserId = DbUtils.GetInt(reader, "CartUserId"),
+                                    ProductColor = new ProductColor()
                                     {
-                                        Id = DbUtils.GetInt(reader, "Id"),
-                                        ProductId = DbUtils.GetInt(reader, "CartProductId"),
-                                        ProductQuantity = DbUtils.GetInt(reader, "ProductQuantity"),
-                                        UserId = DbUtils.GetInt(reader, "CartUserId"),
-                                        ProductColor = new ProductColor()
+                                        ColorId = DbUtils.GetInt(reader, "ColorId"),
+                                        ProductId = DbUtils.GetInt(reader, "PrdctId"),
+                                        Color = new Color()
                                         {
-                                            ColorId = DbUtils.GetInt(reader, "ColorId"),
-                                            ProductId = DbUtils.GetInt(reader, "PrdctId"),
-                                            Color = new Color()
-                                            {
-                                                Id = DbUtils.GetInt(reader, "ClrId"),
-                                                Name = DbUtils.GetString(reader, "ClrName"),
-                                                UserProfile = new UserProfile()
-                                                {
-                                                    Id = DbUtils.GetInt(reader, "UserProfileId"),
-                                                    FirstName = DbUtils.GetString(reader, "FirstName"),
-                                                    LastName = DbUtils.GetString(reader, "LastName"),
-                                                    Email = DbUtils.GetString(reader, "Email"),
-                                                    StreetAddress = DbUtils.GetString(reader, "StreetAddress"),
-                                                    City = DbUtils.GetString(reader, "City"),
-                                                    State = DbUtils.GetString(reader, "State"),
-                                                    ZipCode = DbUtils.GetInt(reader, "ZipCode"),
-                                                    PhoneNumber = DbUtils.GetString(reader, "PhoneNumber"),
-                                                    FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
-                                                    IsActive = DbUtils.GetBool(reader, "IsActive")
-                                                }
-                                            }
+                                            Id = DbUtils.GetInt(reader, "ClrId"),
+                                            Name = DbUtils.GetString(reader, "ClrName"),
                                         }
-                                    }
+                                    },
+
                                 }
                             });
                         }

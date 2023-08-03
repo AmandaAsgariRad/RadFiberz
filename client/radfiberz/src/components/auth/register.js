@@ -43,102 +43,107 @@ export default function Register() {
 
 
     return (
-        <Form onSubmit={registerClick}>
-            <fieldset>
-                <FormGroup>
-                    <Label htmlFor="firstName">First Name</Label>
-                    <Input
-                        id="firstName"
-                        type="text"
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                </FormGroup>
+        <>
+            <div>
+                <h1 className="mt-5 mb-4 text-center">Create An Account</h1>
+            </div>
+            <Form onSubmit={registerClick}>
+                <fieldset className="lead text-justify text-center">
+                    <FormGroup>
+                        <Label htmlFor="firstName">First Name</Label>
+                        <Input
+                            id="firstName"
+                            type="text"
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
+                    </FormGroup>
 
-                <FormGroup>
-                    <Label htmlFor="lastName">Last Name</Label>
-                    <Input
-                        id="lastName"
-                        type="text"
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="lastName">Last Name</Label>
+                        <Input
+                            id="lastName"
+                            type="text"
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+                    </FormGroup>
 
-                <FormGroup>
-                    <Label htmlFor="streetAddress">Street Address</Label>
-                    <Input
-                        id="streetAddress"
-                        type="text"
-                        onChange={(e) => setStreetAddress(e.target.value)}
-                    />
-                </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="streetAddress">Street Address</Label>
+                        <Input
+                            id="streetAddress"
+                            type="text"
+                            onChange={(e) => setStreetAddress(e.target.value)}
+                        />
+                    </FormGroup>
 
-                <FormGroup>
-                    <Label htmlFor="city">City</Label>
-                    <Input
-                        id="city"
-                        type="text"
-                        onChange={(e) => setCity(e.target.value)}
-                    />
-                </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="city">City</Label>
+                        <Input
+                            id="city"
+                            type="text"
+                            onChange={(e) => setCity(e.target.value)}
+                        />
+                    </FormGroup>
 
-                <FormGroup>
-                    <Label htmlFor="state">State</Label>
-                    <Input
-                        id="state"
-                        type="text"
-                        onChange={(e) => setState(e.target.value)}
-                    />
-                </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="state">State</Label>
+                        <Input
+                            id="state"
+                            type="text"
+                            onChange={(e) => setState(e.target.value)}
+                        />
+                    </FormGroup>
 
-                <FormGroup>
-                    <Label htmlFor="zip">Zip Code</Label>
-                    <Input
-                        id="zip"
-                        type="text"
-                        onChange={(e) => setZipCode(e.target.value)}
-                    />
-                </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="zip">Zip Code</Label>
+                        <Input
+                            id="zip"
+                            type="text"
+                            onChange={(e) => setZipCode(e.target.value)}
+                        />
+                    </FormGroup>
 
-                <FormGroup>
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input
-                        id="phone"
-                        type="text"
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                    />
-                </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="phone">Phone</Label>
+                        <Input
+                            id="phone"
+                            type="text"
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                        />
+                    </FormGroup>
 
-                <FormGroup>
-                    <Label for="email">Email</Label>
-                    <Input
-                        id="email"
-                        type="text"
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </FormGroup>
+                    <FormGroup>
+                        <Label for="email">Email</Label>
+                        <Input
+                            id="email"
+                            type="text"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </FormGroup>
 
-                <FormGroup>
-                    <Label for="password">Password</Label>
-                    <Input
-                        id="password"
-                        type="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </FormGroup>
+                    <FormGroup>
+                        <Label for="password">Password</Label>
+                        <Input
+                            id="password"
+                            type="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </FormGroup>
 
-                <FormGroup>
-                    <Label for="confirmPassword">Confirm Password</Label>
-                    <Input
-                        id="confirmPassword"
-                        type="password"
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Button>Register</Button>
-                </FormGroup>
-            </fieldset>
-        </Form>
+                    <FormGroup>
+                        <Label for="confirmPassword">Confirm Password</Label>
+                        <Input
+                            id="confirmPassword"
+                            type="password"
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Button color="primary">Register</Button>
+                    </FormGroup>
+                </fieldset>
+            </Form>
+        </>
     );
 }
 

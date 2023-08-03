@@ -4,6 +4,24 @@ import { NavLink as RRNavLink } from "react-router-dom"
 import { Navbar, NavItem, NavLink } from "reactstrap"
 import React, { useState } from 'react'
 import { logout } from "../modules/authManager"
+import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa"
+import { NavbarBrand } from "reactstrap"
+
+
+function LogoNav() {
+    return (
+        <Navbar color="white" light expand="md">
+            <NavbarBrand href="/">
+                <img
+                    src="https://i.imgur.com/G2ZVxRi.jpg"
+                    alt="logo"
+                    style={{ maxWidth: "25%", maxHeight: "25%" }}
+                />
+            </NavbarBrand>
+        </Navbar>
+    );
+}
+
 
 
 export default function Header({ isLoggedIn, user }) {
@@ -12,68 +30,95 @@ export default function Header({ isLoggedIn, user }) {
 
     return (
         <div>
+            <LogoNav />
             <Navbar color="light" light expand="md">
                 <NavbarToggle onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
-                    <Nav className="mr-auto" navbar>
-                        {isLoggedIn &&
+                    <Nav className="mx-auto ml-auto" navbar>
+                        {isLoggedIn && (
                             <>
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/*">Home</NavLink>
+                                    <NavLink tag={RRNavLink} to="/*">
+                                        Home
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/about">About</NavLink>
+                                    <NavLink tag={RRNavLink} to="/about">
+                                        About
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <a className="nav-link" onClick={logout}>Logout</a>
+                                    <a className="nav-link" onClick={logout}>
+                                        Logout
+                                    </a>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/favorite">Favorites</NavLink>
+                                    <NavLink tag={RRNavLink} to="/favorite">
+                                        <FaHeart />
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to={`userProfile/${user.id}`}>Profile</NavLink>
+                                    <NavLink tag={RRNavLink} to={`userProfile/${user.id}`}>
+                                        <FaUser />
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/cart">Cart</NavLink>
+                                    <NavLink tag={RRNavLink} to="/cart">
+                                        <FaShoppingCart />
+                                    </NavLink>
                                 </NavItem>
                             </>
-                        }
-                        {!isLoggedIn &&
+                        )}
+                        {!isLoggedIn && (
                             <>
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/*">Home</NavLink>
+                                    <NavLink tag={RRNavLink} to="/*">
+                                        Home
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/about">About</NavLink>
+                                    <NavLink tag={RRNavLink} to="/about">
+                                        About
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/login">Login</NavLink>
+                                    <NavLink tag={RRNavLink} to="/login">
+                                        Login
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/login">Favorites</NavLink>
+                                    <NavLink tag={RRNavLink} to="/login">
+                                        <FaHeart />
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/login">Profile</NavLink>
+                                    <NavLink tag={RRNavLink} to="/login">
+                                        <FaUser />
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/login">Cart</NavLink>
+                                    <NavLink tag={RRNavLink} to="/login">
+                                        <FaShoppingCart />
+                                    </NavLink>
                                 </NavItem>
                             </>
-                        }
-
+                        )}
                     </Nav>
                 </Collapse>
             </Navbar>
+
         </div>
-    )
+
+    );
+
 }

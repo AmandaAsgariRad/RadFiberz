@@ -38,10 +38,10 @@ namespace RadFiberz.Controllers
         }
         //Product Colors-------------------------------------------------------
 
-        [HttpGet("productColors")]
-        public IActionResult GetAllProductColors()
+        [HttpGet("productColors/{userId}")]
+        public IActionResult GetAllProductColors(int userId)
         {
-            List<ProductColor> productColors = _colorRepository.GetAllProductColors();
+            List<ProductColor> productColors = _colorRepository.GetAllProductColors(userId);
             return Ok(productColors);
         }
 

@@ -8,7 +8,7 @@ namespace RadFiberz.Repositories
         void AddProductColor(ProductColor productColor);
         void DeletePcById(int id);
         public List<Color> GetAll();
-        List<ProductColor> GetAllProductColors();
+        List<ProductColor> GetAllProductColors(int userId);
         Color GetById(int id);
         ProductColor GetPcByUserId(int userId);
     }

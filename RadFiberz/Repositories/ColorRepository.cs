@@ -72,7 +72,7 @@ namespace RadFiberz.Repositories
         //----------------------------product colors------------------------------------------------------
 
 
-        public List<ProductColor> GetAllProductColors()
+        public List<ProductColor> GetAllProductColors(int userId)
         {
             using (var conn = Connection)
             {
@@ -87,8 +87,11 @@ namespace RadFiberz.Repositories
                         FROM ProductColor pc
                         JOIN Product p ON p.Id = pc.ProductId
                         JOIN Color c ON pc.ColorId = c.Id
-                        JOIN UserProfile up ON pc.UserId = up.Id;
+                        JOIN UserProfile up ON pc.UserId = up.Id
+                        WHERE pc.UserId = @userId
                         ";
+
+                    DbUtils.AddParameter(cmd, "@userId", userId);
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -105,14 +108,10 @@ namespace RadFiberz.Repositories
                                 {
                                     Id = DbUtils.GetInt(reader, "ClrId"),
                                     Name = DbUtils.GetString(reader, "Name"),
-                                    UserProfile = new UserProfile()
-                                    {
-                                        Id = DbUtils.GetInt(reader, "UserProfileId"),
-                                        Product = new Product()
-                                        {
-                                            Id = DbUtils.GetInt(reader, "PrdctId")
-                                        }
-                                    }
+                                },
+                                Product = new Product()
+                                {
+                                    Id = DbUtils.GetInt(reader, "PrdctId")
                                 }
                             });
 
@@ -159,11 +158,11 @@ namespace RadFiberz.Repositories
                             Product = new Product()
                             {
                                 Id = DbUtils.GetInt(reader, "PrdctId"),
-                                Color = new Color()
-                                {
-                                    Id = DbUtils.GetInt(reader, "ClrId"),
-                                    Name = DbUtils.GetString(reader, "Name")
-                                }
+                            },
+                            Color = new Color()
+                            {
+                                Id = DbUtils.GetInt(reader, "ClrId"),
+                                Name = DbUtils.GetString(reader, "Name")
                             }
                         };
                     }

@@ -28,13 +28,14 @@ export const addItemToCart = (cart) => {
     });
 }
 
-export const updateCart = (id, cart) => {
+
+export const updateCart = (id, productColor) => {
     return fetch(`${baseUrl}/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(cart),
+        body: JSON.stringify(productColor),
     });
 }
 

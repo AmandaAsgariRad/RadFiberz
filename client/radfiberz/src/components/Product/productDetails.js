@@ -93,10 +93,12 @@ export default function ProductDetails() {
     }
 
     return (
-        <Card className="item-card" style={{ marginTop: '10rem', paddingBottom: '10rem', paddingLeft: '10rem', paddingRight: '10rem' }}>
-            <Row className="justify-content-center align-items-center lead">
-                <Col xs={12} md={4} className="text-center">
-                    <CardImg variant="top" src={item.productImage} alt={item.name} />
+        <Card className="item-card" style={{ marginTop: '7rem', marginBottom: '7rem', paddingLeft: '10rem', paddingRight: '10rem' }}>
+            <Row className="justify-content-center align-items-center lead" xs={1} md={2}>
+                <Col className="text-center mb-3 mb-md-0">
+                    <div style={{ backgroundColor: '#f2f2f2', padding: '1rem', borderRadius: '0.5rem' }}>
+                        <CardImg src={item.productImage} alt={item.name} />
+                    </div>
                 </Col>
                 <Col xs={12} md={8}>
                     <CardBody className="details text-center text-md-start">

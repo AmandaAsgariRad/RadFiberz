@@ -10,6 +10,6 @@ namespace RadFiberz.Repositories
         void DeleteByUserId(int userId);
         public Cart GetById(int id);
         public List<Cart> GetByUserId(int userId);
-        void Update(Cart cart);
+        void Update(int id, ProductColor productColor);
     }
 }

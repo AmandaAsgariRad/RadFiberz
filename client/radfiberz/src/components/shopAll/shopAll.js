@@ -40,7 +40,10 @@ export default function ShopAll() {
                 <h1 className="mt-5 mb-4 text-center">Shop All Products</h1>
             </div>
             <div className="mt-3 lead text-center" id='shopAll-container'>
-                <h3 style={{ marginTop: '5rem' }}>Macrame</h3>
+                <div className="macrame-decoration" style={{ marginTop: '5rem', paddingBottom: '0.5rem', backgroundColor: '#f2f2f2' }}>
+                    <h3 style={{ marginTop: '5rem' }} id="macrame-section" >Macrame</h3>
+                    <a href="#jewelry-section">Go to Jewelry</a>
+                </div>
                 <Row style={{ marginTop: '3rem' }}>
                     {macrames.map(macrame => (
                         <Col sm={6} md={4} lg={3} key={macrame.id} style={{ marginBottom: '2rem' }}>
@@ -53,7 +56,10 @@ export default function ShopAll() {
                         </Col>
                     ))}
                 </Row>
-                <h3 style={{ marginTop: '5rem' }}>Jewelry</h3>
+                <div className="jewelry-decoration" style={{ marginTop: '5rem', paddingBottom: '0.5rem', backgroundColor: '#f2f2f2' }} >
+                    <h3 id="jewelry-section">Jewelry</h3>
+                    <a href="#macrame-section">Go to Macrame</a>
+                </div>
                 <Row style={{ marginTop: '3rem' }}>
                     {jewelrys.map(jewelry => (
                         <Col sm={6} md={4} lg={3} key={jewelry.id} style={{ marginBottom: '2rem' }}>
@@ -65,9 +71,11 @@ export default function ShopAll() {
                             </Card>
                         </Col>
                     ))}
+
                 </Row>
             </div>
-        </Container>
+
+        </Container >
 
     );
 }

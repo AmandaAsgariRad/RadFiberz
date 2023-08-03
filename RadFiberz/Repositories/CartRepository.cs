@@ -210,7 +210,7 @@ namespace RadFiberz.Repositories
             }
         }
 
-        public void Update(Cart cart)
+        public void Update(int id, ProductColor productColor)
         {
             using (var conn = Connection)
             {
@@ -218,19 +218,12 @@ namespace RadFiberz.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        UPDATE Cart
-                        SET ProductId = @productId,
-                            ProductQuantity = @productQuantity,
-                            UserId = @userId,
-                            ProductColorId = @productColorId,
-                            OrderComplete = @orderComplete
+                        UPDATE ProductColor
+                        SET ColorId = @ColorId
                         WHERE Id = @id";
 
-                    DbUtils.AddParameter(cmd, "@productId", cart.ProductId);
-                    DbUtils.AddParameter(cmd, "@productQuantity", cart.ProductQuantity);
-                    DbUtils.AddParameter(cmd, "@userId", cart.UserId);
-                    DbUtils.AddParameter(cmd, "@productColorId", cart.ProductColorId);
-                    DbUtils.AddParameter(cmd, "@orderComplete", cart.OrderComplete);
+                    DbUtils.AddParameter(cmd, "id", id);
+                    DbUtils.AddParameter(cmd, "@ColorId", productColor.ColorId);
 
                     cmd.ExecuteNonQuery();
                 }

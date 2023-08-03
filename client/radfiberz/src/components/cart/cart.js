@@ -42,37 +42,64 @@ export default function Cart() {
         setCart(cart.filter((item) => item.productColorId !== productColorId));
     };
 
-    const handleEditColor = (event, cartId, newProductColorId) => {
-        event.stopPropagation();
 
-        const cartItem = cart.find(item => item.id === cartId);
+    const handleEditColor = (cartId, newProductColorId) => {
+        const cartItem = cart.find((item) => item.id === cartId);
 
-        // Check if the user selected a new color
-        if (cartItem.productColorId !== newProductColorId) {
-            // Show a confirmation dialog
+        if (cartItem?.productColorId !== newProductColorId) {
             if (window.confirm("Are you sure you want to update your cart?")) {
                 const updatedCart = {
-                    id: cartId,
-                    userId: userId,
-                    productId: cartItem.product.id,
-                    productColorId: newProductColorId,
-                    quantity: cartItem.quantity
+                    colorId: newProductColorId
+
                 };
 
-                updateCart(updatedCart).then(updatedCartItem => {
-                    // Update the product color of the cart item in the state
+                updateCart(cartId, updatedCart).then((updatedCartItem) => {
                     const updatedCartItemWithColor = {
                         ...updatedCartItem,
-                        productColor: colors.find(item => item.id === newProductColorId)
+                        productColor: colors.find(
+                            (item) => item.id === newProductColorId
+                        ),
                     };
+
                     setCart([
-                        ...cart.filter(item => item.id !== cartId),
-                        updatedCartItemWithColor
+                        ...cart.filter((item) => item.id !== cartId),
+                        updatedCartItemWithColor,
                     ]);
                 });
             }
         }
     };
+    // const handleEditColor = (cartId, newProductColorId) => {
+
+    //     const cartItem = cart.find(item => item.id === cartId);
+
+    //     // Check if the user selected a new color
+    //     if (cartItem.productColorId !== newProductColorId) {
+    //         // Show a confirmation dialog
+    //         if (window.confirm("Are you sure you want to update your cart?")) {
+    //             const updatedCart = {
+    //                 id: cartId,
+    //                 userId: userId,
+    //                 productId: cartItem.product.id,
+    //                 productColorId: newProductColorId,
+    //                 productQuantity: cartItem.productQuantity,
+    //                 productImage: cartItem.product.productImage,
+    //             };
+
+    //             updateCart(updatedCart).then(updatedCartItem => {
+    //                 // Update the product color of the cart item in the state
+    //                 const updatedCartItemWithColor = {
+    //                     ...updatedCartItem,
+    //                     productColor: colors.find(item => item.id === newProductColorId)
+    //                 };
+    //                 setCart([
+    //                     ...cart.filter(item => item.id !== cartId),
+    //                     updatedCartItemWithColor
+    //                 ]);
+    //             });
+    //         }
+    //     }
+    // };
 
 
     // const handleEditColor = (cartId, newProductColorId) => {
@@ -98,14 +125,6 @@ export default function Cart() {
     //     });
     // };
 
-    const navigateToProductDetails = (id) => {
-        const item = cart.find(item => item.product.id === id);
-        if (item.product.isJewelry === true) {
-            window.location.href = `/jewelry/${id}`;
-        } else {
-            window.location.href = `/macrame/${id}`;
-        }
-    };
 
     return (
         <Container>
@@ -118,24 +137,27 @@ export default function Cart() {
                 <Button style={{ marginTop: '1rem' }} href="/checkout" color="primary" className="mr-2">Confirm Checkout</Button>
                 <Row className="lead text-center" style={{ marginTop: '3rem' }}>
                     {cart.map(item => (
-                        <Col key={item.id} sm={6} md={4} lg={3} style={{ marginBottom: '2rem' }}>
-                            <Card style={{ marginTop: '2rem' }} onClick={() => navigateToProductDetails(item.product.id)}>
-                                <CardImg variant="top" src={item.product.productImage} alt={item.product.name} style={{ height: '300px', objectFit: 'cover' }} />
+                        <Col key={`item--${item.id}`} sm={6} md={4} lg={3} style={{ marginBottom: '2rem' }}>
+                            <Card style={{ marginTop: '2rem' }}>
+                                <CardImg variant="top" src={item?.product?.productImage} alt={item?.product?.name} style={{ height: '300px', objectFit: 'cover' }} />
                                 <CardBody>
-                                    <CardTitle style={{ marginTop: '1rem' }}>{item.product.name}</CardTitle>
+                                    <CardTitle style={{ marginTop: '1rem' }}>{item?.product?.name}</CardTitle>
                                     <CardSubtitle style={{ marginTop: '1rem' }}>
                                         Color:&nbsp;
-                                        {item.product.color.name}
+                                        {item?.product?.color?.name}
                                     </CardSubtitle>
                                     <CardText style={{ marginTop: '1rem' }}>
                                         Price:
-                                        ${item.product.price.toFixed(2)}
+                                        ${item?.product?.price?.toFixed(2)}
                                     </CardText>
-                                    <Button style={{ marginBottom: '1rem' }} color="primary" className="mr-2" onClick={(event) => handleDelete(event, item.productColorId)}>Remove</Button>
-                                    <select className="form-control d-inline-block w-auto" value={item.productColor?.id || ""}
+                                    <Button style={{ marginBottom: '1rem' }} color="primary" className="mr-2" onClick={(event) => {
+                                        event.stopPropagation();
+                                        handleDelete(event, item?.productColorId);
+                                    }}>
+                                        Remove</Button>
+                                    <select className="form-control d-inline-block w-auto" value={item?.productColor?.id || ""}
                                         onChange={(event) => {
-                                            event.stopPropagation();
-                                            handleEditColor(item.id, parseInt(event.target.value))
+                                            handleEditColor(item?.productColorId, parseInt(event.target.value))
                                         }}>
                                         <option value="">Edit Color</option>
                                         {colors.map(color => (
@@ -154,7 +176,16 @@ export default function Cart() {
         </Container>
     );
 }
+{/* <Card style={{ marginTop: '2rem' }} onClick={() => navigateToProductDetails(item.product.id)}></Card> */ }
 
+// const navigateToProductDetails = (id) => {
+//     const item = cart.find(item => item.product.id === id);
+//     if (item.product.isJewelry === true) {
+//         window.location.href = `/jewelry/${id}`;
+//     } else {
+//         window.location.href = `/macrame/${id}`;
+//     }
+// };
 
 
 

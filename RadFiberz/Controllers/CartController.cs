@@ -66,26 +66,23 @@ namespace RadFiberz.Controllers
 
         // PUT/Update api/<CartController>/5
         [HttpPut("{id}")]
-        public IActionResult UpdateCart(int id, Cart cart)
+        public IActionResult UpdateCart(int id, ProductColor productColor)
         {
-            if (cart == null || cart.Id != id)
+            if (productColor == null)
             {
                 return BadRequest();
             }
 
-            var existingCart = _cartRepository.GetById(id);
-            if (existingCart == null)
-            {
-                return NotFound();
-            }
+            //var existingCart = _cartRepository.GetById(id);
+            //if (existingCart == null)
+            //{
+            //    return NotFound();
+            //}
 
-            existingCart.ProductId = cart.ProductId;
-            existingCart.ProductQuantity = cart.ProductQuantity;
-            existingCart.UserId = cart .UserId;
-            existingCart.ProductColorId = cart .ProductColorId;
-            existingCart.OrderComplete = cart.OrderComplete;
+            //existingCart.ProductId = productColor.ProductId;
+            //existingCart.ProductColorId = productColor.ColorId;
 
-            _cartRepository.Update(existingCart);
+            _cartRepository.Update(id, productColor);
 
             return NoContent();
         }

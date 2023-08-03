@@ -22,19 +22,7 @@ export const deleteFavorite = (id) => {
             "Content-Type": "application/json"
         }
     })
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("Failed to delete favorite");
-            }
-            if (res.status === 204) {
-                return Promise.resolve();
-            }
-            return res.json();
-        })
-        .catch(error => {
-            console.error(error);
-            throw new Error("Failed to delete favorite: " + error.message);
-        });
+
 };
 // export const deleteFavorite = (id) => {
 //     return fetch(`${baseUrl}/${id}`, {

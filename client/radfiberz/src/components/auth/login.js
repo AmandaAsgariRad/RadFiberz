@@ -38,10 +38,10 @@ export default function Login() {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Button>Login</Button>
+                    <Button color="primary">Login</Button>
                 </FormGroup>
                 <em>
-                    Not registered? <Link to="register">Register</Link>
+                    Not registered? <Link to="/register">Register</Link>
                 </em>
             </fieldset>
         </Form>

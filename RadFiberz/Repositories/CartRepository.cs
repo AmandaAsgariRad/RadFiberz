@@ -2,6 +2,7 @@
 using System;
 using Microsoft.Extensions.Configuration;
 using RadFiberz.Utils;
+using System.Collections.Generic;
 
 namespace RadFiberz.Repositories
 {
@@ -63,7 +64,7 @@ namespace RadFiberz.Repositories
             }
         }
 
-        public Cart GetByUserId(int userId)
+        public List<Cart> GetByUserId(int userId)
         {
             using (var conn = Connection)
             {
@@ -71,24 +72,24 @@ namespace RadFiberz.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT c.Id, c.ProductId, c.ProductQuantity, c.UserId, c.ProductColorId, c.OrderComplete,
-                               p.Id AS ProdId, p.IsMacrame, p.IsJewelry, p.Name, p.InventoryQuantity,
-                               p.Price, p.Description, p.ProductImage,
-                               pc.Id AS PrdctClrId, pc.ColorId, pc.ProductId AS PrdctId,
-                               col.Id AS ClrId, col.Name AS ColorName
-                        FROM Cart c
-                        JOIN Product p ON c.ProductId = p.Id
-                        JOIN ProductColor pc ON c.ProductColorId = pc.Id
-                        JOIN Color col ON pc.ColorId = col.Id
-                        WHERE c.UserId = @userId";
+                SELECT c.Id, c.ProductId, c.ProductQuantity, c.UserId, c.ProductColorId, c.OrderComplete,
+                       p.Id AS ProdId, p.IsMacrame, p.IsJewelry, p.Name, p.InventoryQuantity,
+                       p.Price, p.Description, p.ProductImage,
+                       pc.Id AS PrdctClrId, pc.ColorId, pc.ProductId AS PrdctId,
+                       col.Id AS ClrId, col.Name AS ColorName
+                FROM Cart c
+                JOIN Product p ON c.ProductId = p.Id
+                JOIN ProductColor pc ON c.ProductColorId = pc.Id
+                JOIN Color col ON pc.ColorId = col.Id
+                WHERE c.UserId = @userId";
 
                     DbUtils.AddParameter(cmd, "@userId", userId);
 
-                    Cart cart = null;
+                    List<Cart> carts = new List<Cart>();
                     var reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-                        cart = new Cart()
+                        var cart = new Cart()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             ProductId = DbUtils.GetInt(reader, "ProductId"),
@@ -106,17 +107,74 @@ namespace RadFiberz.Repositories
                                 Price = reader.GetDouble(reader.GetOrdinal("Price")),
                                 Description = DbUtils.GetString(reader, "Description"),
                                 ProductImage = DbUtils.GetString(reader, "ProductImage"),
-                                
+                                Color = new Color()
+                                {
+                                    Id = DbUtils.GetInt(reader, "ClrId"),
+                                    Name = DbUtils.GetString(reader, "ColorName"),
+                                }
                             }
-
                         };
+                        carts.Add(cart);
                     }
-                    return cart;
+                    return carts;
                 }
             }
         }
 
-        public void DeleteByProductId(int productId)
+        //public Cart GetByUserId(int userId)
+        //{
+        //    using (var conn = Connection)
+        //    {
+        //        conn.Open();
+        //        using (var cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"
+        //                SELECT c.Id, c.ProductId, c.ProductQuantity, c.UserId, c.ProductColorId, c.OrderComplete,
+        //                       p.Id AS ProdId, p.IsMacrame, p.IsJewelry, p.Name, p.InventoryQuantity,
+        //                       p.Price, p.Description, p.ProductImage,
+        //                       pc.Id AS PrdctClrId, pc.ColorId, pc.ProductId AS PrdctId,
+        //                       col.Id AS ClrId, col.Name AS ColorName
+        //                FROM Cart c
+        //                JOIN Product p ON c.ProductId = p.Id
+        //                JOIN ProductColor pc ON c.ProductColorId = pc.Id
+        //                JOIN Color col ON pc.ColorId = col.Id
+        //                WHERE c.UserId = @userId";
+
+        //            DbUtils.AddParameter(cmd, "@userId", userId);
+
+        //            Cart cart = null;
+        //            var reader = cmd.ExecuteReader();
+        //            if (reader.Read())
+        //            {
+        //                cart = new Cart()
+        //                {
+        //                    Id = DbUtils.GetInt(reader, "Id"),
+        //                    ProductId = DbUtils.GetInt(reader, "ProductId"),
+        //                    ProductQuantity = DbUtils.GetInt(reader, "ProductQuantity"),
+        //                    UserId = DbUtils.GetInt(reader, "UserId"),
+        //                    ProductColorId = DbUtils.GetInt(reader, "ProductColorId"),
+        //                    OrderComplete = DbUtils.GetBool(reader, "OrderComplete"),
+        //                    Product = new Product()
+        //                    {
+        //                        Id = DbUtils.GetInt(reader, "ProdId"),
+        //                        IsMacrame = DbUtils.GetBool(reader, "IsMacrame"),
+        //                        IsJewelry = DbUtils.GetBool(reader, "IsJewelry"),
+        //                        Name = DbUtils.GetString(reader, "Name"),
+        //                        InventoryQuantity = DbUtils.GetInt(reader, "InventoryQuantity"),
+        //                        Price = reader.GetDouble(reader.GetOrdinal("Price")),
+        //                        Description = DbUtils.GetString(reader, "Description"),
+        //                        ProductImage = DbUtils.GetString(reader, "ProductImage"),
+
+        //                    }
+
+        //                };
+        //            }
+        //            return cart;
+        //        }
+        //    }
+        //}
+
+        public void DeleteByProductColorId(int productColorId)
         {
             using (var conn = Connection)
             {
@@ -125,9 +183,9 @@ namespace RadFiberz.Repositories
                 {
                     cmd.CommandText = @"
                         DELETE FROM Cart
-                        WHERE ProductId = @productId";
+                        WHERE ProductColorId = @productColorId";
 
-                    DbUtils.AddParameter(cmd, "@productId", productId);
+                    DbUtils.AddParameter(cmd, "@productColorId", productColorId);
 
                     cmd.ExecuteNonQuery();
                 }

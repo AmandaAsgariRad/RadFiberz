@@ -37,15 +37,15 @@ export default function ShopAll() {
     return (
         <Container>
             <div id='shopAll-header'>
-                <h1>Shop All Products</h1>
+                <h1 className="mt-5 mb-4 text-center">Shop All Products</h1>
             </div>
-            <div id='shopAll-container'>
+            <div className="mt-3 lead text-center" id='shopAll-container'>
                 <h3 style={{ marginTop: '5rem' }}>Macrame</h3>
                 <Row style={{ marginTop: '3rem' }}>
                     {macrames.map(macrame => (
-                        <Col sm={6} md={4} lg={3} key={macrame.id}>
+                        <Col sm={6} md={4} lg={3} key={macrame.id} style={{ marginBottom: '2rem' }}>
                             <Card onClick={() => navigateToMacrameDetails(macrame.id)}>
-                                <CardImg variant="top" src={macrame.productImage} alt={macrame.name} />
+                                <CardImg variant="top" src={macrame.productImage} alt={macrame.name} style={{ height: '300px', objectFit: 'cover' }} />
                                 <CardBody>
                                     <CardTitle>{macrame.name}</CardTitle>
                                 </CardBody>
@@ -56,9 +56,9 @@ export default function ShopAll() {
                 <h3 style={{ marginTop: '5rem' }}>Jewelry</h3>
                 <Row style={{ marginTop: '3rem' }}>
                     {jewelrys.map(jewelry => (
-                        <Col sm={6} md={4} lg={3} key={jewelry.id}>
+                        <Col sm={6} md={4} lg={3} key={jewelry.id} style={{ marginBottom: '2rem' }}>
                             <Card onClick={() => navigateToJewelryDetails(jewelry.id)}>
-                                <CardImg variant="top" src={jewelry.productImage} alt={jewelry.name} />
+                                <CardImg variant="top" src={jewelry.productImage} alt={jewelry.name} style={{ height: '300px', objectFit: 'cover' }} />
                                 <CardBody>
                                     <CardTitle>{jewelry.name}</CardTitle>
                                 </CardBody>

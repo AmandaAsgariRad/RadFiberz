@@ -1,16 +1,21 @@
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import React from "react";
-import "./home.css";
+import { Container, Button } from "reactstrap";
 
 
 export default function Home() {
     const location = useLocation();
     const userProfile = location.state?.userProfile;
+
     return (
-        <section>
-            <h1>Home</h1>
-            <Link to="/shopAll">Shop All</Link>
-        </section>
-    )
+        <Container>
+            <h1 className="mt-5 mb-4 text-center">Home</h1>
+            <div className="d-flex lead justify-content-center">
+                <Button style={{ marginTop: '1rem' }} tag={Link} to="/shopAll" color="primary">
+                    Shop All
+                </Button>
+            </div>
+        </Container>
+    );
 }

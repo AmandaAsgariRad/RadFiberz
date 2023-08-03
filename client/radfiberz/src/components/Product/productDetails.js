@@ -6,6 +6,7 @@ import { Col, Row, CardImg, Button } from 'react-bootstrap';
 import { getAllColors } from '../../modules/productManager';
 import { addItemToCart } from '../../modules/cartManager';
 import { addFavorite } from '../../modules/favoriteManager';
+import { FaHeart, FaShoppingCart } from 'react-icons/fa';
 
 
 export default function ProductDetails() {
@@ -59,22 +60,22 @@ export default function ProductDetails() {
         setProductColor(newColor)
     }
 
-    const handleRedirectToCart = () => {
-        window.alert("Item added to cart!");
-        Navigate("/cart");
-    }
+
 
     const handleAddToCart = () => {
-        addProductColor(productColor)
-            .then((data) => {
-                console.log(data)
-                const tempCartProduct = { ...cartProduct };
-                tempCartProduct.productColorId = data;
-                setCartProduct(tempCartProduct);
-                console.log(tempCartProduct)
-                addItemToCart(tempCartProduct)
-                handleRedirectToCart();
-            })
+        if (productColor.colorId !== 0) {
+            addProductColor(productColor)
+                .then((data) => {
+                    const tempCartProduct = { ...cartProduct };
+                    tempCartProduct.productColorId = data;
+                    setCartProduct(tempCartProduct);
+                    addItemToCart(tempCartProduct)
+                    window.alert("Item added to cart!");
+
+                })
+        } else {
+            window.alert("Please select a color!")
+        }
     };
 
 
@@ -82,11 +83,8 @@ export default function ProductDetails() {
     const handleAddToFavorite = () => {
         addFavorite(favorite)
             .then(() => {
-                window.location.href = '/favorite';
+                window.alert("Item added to favorites!");
             })
-            .catch(error => {
-                console.error(error);
-            });
     }
 
 
@@ -95,8 +93,8 @@ export default function ProductDetails() {
     }
 
     return (
-        <Card className="item-card" style={{ marginTop: '10rem' }}>
-            <Row className="justify-content-center align-items-center">
+        <Card className="item-card" style={{ marginTop: '10rem', paddingBottom: '10rem', paddingLeft: '10rem', paddingRight: '10rem' }}>
+            <Row className="justify-content-center align-items-center lead">
                 <Col xs={12} md={4} className="text-center">
                     <CardImg variant="top" src={item.productImage} alt={item.name} />
                 </Col>
@@ -105,7 +103,7 @@ export default function ProductDetails() {
                         <CardTitle>{item.name}</CardTitle>
                         <CardSubtitle style={{ marginTop: '1rem' }}>{item.description}</CardSubtitle>
                         <CardText style={{ marginTop: '1rem' }}>Price: ${item.price}</CardText>
-                        {item.isMacrame && (
+                        {item.isMacrame ? (
                             <div>
                                 <select className="form-select" onChange={(e) => handleColor(e.target.value)}>
                                     <option disabled selected>
@@ -118,13 +116,20 @@ export default function ProductDetails() {
                                     ))}
                                 </select>
                             </div>
-                        )}
-                        <Button style={{ marginTop: '2rem' }} onClick={handleAddToCart}>Add to Cart</Button>
-                        <Button style={{ marginTop: '2rem', marginLeft: '2rem' }} onClick={handleAddToFavorite}>Add to Favorite</Button>
+                        ) : (<div>
+                            <select className="form-select" onChange={(e) => handleColor(e.target.value)}>
+                                <option disabled selected>
+                                    Choose a color
+                                </option>
+                                <option value={13}>As Pictured</option>
+                            </select>
+                        </div>)}
+                        <Button style={{ marginTop: '2rem' }} color="success" onClick={handleAddToCart}><FaShoppingCart /></Button>
+                        <Button style={{ marginTop: '2rem', marginLeft: '2rem' }} color="success" onClick={handleAddToFavorite}><FaHeart /></Button>
                     </CardBody>
                 </Col>
             </Row>
-        </Card>
+        </Card >
     );
 }
 
